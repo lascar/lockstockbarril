@@ -1,0 +1,8 @@
+Tue, 19 Jan 2016 16:41:45 +0100
+README.rdoc	Tue, 19 Jan 2016 16:41:39 +0100
+app/controllers/application_controller.rb	Tue, 19 Jan 2016 14:06:00 +0100
+app/controllers/articles_controller.rb	Tue, 19 Jan 2016 16:19:54 +0100
+app/helpers/application_helper.rb	Tue, 19 Jan 2016 14:06:00 +0100
+app/helpers/articles_helper.rb	Tue, 19 Jan 2016 16:19:54 +0100
+app/models/article.rb	Tue, 19 Jan 2016 16:11:31 +0100
+app/models/user.rb	Tue, 19 Jan 2016 14:22:54 +0100

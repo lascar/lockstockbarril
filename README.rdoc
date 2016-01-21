@@ -1,0 +1,53 @@
+== README
+
+This application manages stock
+
+The requirments are:
+
+* users
+
+* * have email, password
+
+* * can edit update delete
+
+* * * articles, brands, suppliers, stocks, locations, addresses
+
+* articles
+
+* * have brand, reference
+
+* * can have suppliers
+
+* * * can have buying price
+
+* * * can have a supplier's reference
+
+* * can have stocks
+
+* * * have quantity
+
+* * * can have location
+
+* brands
+
+* * have name
+
+* suppliers
+
+* * have name
+
+* * can have addresse and articles
+
+* stocks
+
+* * have name, address
+
+* * have capacity
+
+* * have locations
+
+* locations
+
+* * have name
+
+* * can have articles
