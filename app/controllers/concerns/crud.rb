@@ -4,6 +4,7 @@ module CRUD
   included do
     before_action :authenticate_user!
     before_action :set_resource, only: [:show, :edit, :update, :destroy]
+    before_action :set_resources, only: [:index, :destroy]
 
     def self.permitted_attributes(allowed_params)
       define_method :permitted_attributes do
@@ -15,13 +16,11 @@ module CRUD
   # GET /articles
   # GET /articles.json
   def index
-    set_resources
   end
 
   # GET /articles/1
   # GET /articles/1.json
   def show
-    set_resource
   end
 
   # GET /articles/new
@@ -32,7 +31,6 @@ module CRUD
 
   # GET /articles/1/edit
   def edit
-    set_resource
   end
 
   # POST /articles
@@ -69,12 +67,16 @@ module CRUD
   def destroy
     @resource.destroy
     respond_to do |format|
-      format.html { redirect_to articles_url, notice: 'Successfully destroyed.' }
+      format.html { redirect_to resources_url, notice: 'Successfully destroyed.' }
       format.json { head :no_content }
     end
   end
 
   private
+  def resources_url
+    self.send(controller_path + '_path')
+  end
+
   def edit_resource_path
     self.send('edit_' + controller_path.singularize + '_path')
   end
