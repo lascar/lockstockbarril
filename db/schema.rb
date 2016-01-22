@@ -11,19 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160122162548) do
+ActiveRecord::Schema.define(version: 20160122173346) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "reference"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "brand_id"
   end
+
+  add_index "articles", ["brand_id"], name: "index_articles_on_brand_id"
+  add_index "articles", ["reference", "brand_id"], name: "index_articles_on_reference_and_brand_id", unique: true
 
   create_table "brands", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "brands", ["name"], name: "index_brands_on_name", unique: true
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

@@ -1,5 +1,5 @@
 require 'rails_helper'
 
-RSpec.describe BrandController, type: :controller do
+RSpec.describe BrandsController, type: :controller do
 
 end

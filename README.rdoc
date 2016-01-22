@@ -16,6 +16,8 @@ The requirments are:
 
 * * have brand, reference
 
+* * * reference is uniq in a brand
+
 * * can have suppliers
 
 * * * can have buying price
