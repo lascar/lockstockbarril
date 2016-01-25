@@ -17,7 +17,7 @@ end
 
 When(/^the user fills the article's informations$/) do
   fill_in 'article_reference', with: 'test reference'
-  select 'article_brand', with: 'test brand'
+  select @brand1.name, from: 'article_brand_id'
 end
 
 When(/^the user creates a new article$/) do

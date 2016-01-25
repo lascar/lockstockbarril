@@ -16,6 +16,11 @@
       <%= form.text_field :reference %>
     </p>
 
+    <p>
+      <%= form.label :brand %>
+      <%= f.collection_select(:brand_id, @brands, :id, :name, {:include_blank => true}) %>
+    </p>
+
     <p class='buttons'>
       <%= form.submit %>
     </p>

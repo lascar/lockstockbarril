@@ -16,10 +16,12 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
+    @brands = Brand.all
   end
 
   # GET /articles/1/edit
   def edit
+    @brands = Brand.all
   end
 
   # POST /articles
@@ -70,6 +72,6 @@ class ArticlesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def article_params
-      params.require(:article).permit(:reference)
+      params.require(:article).permit(:reference, :brand_id)
     end
 end

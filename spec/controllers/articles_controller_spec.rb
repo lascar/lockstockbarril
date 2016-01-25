@@ -35,6 +35,18 @@ RSpec.describe ArticlesController, type: :controller do
     attributes_for :article_invalid_request
   }
 
+  let(:brand1) {
+    create(:brand)
+  }
+
+  let(:new_valid_attributes_with_brand) {
+    attributes_for :article, brand_id: brand1.id
+  }
+
+  let(:valid_attributes_with_brand) {
+    attributes_for :article, brand_id: brand1.id
+  }
+
   # This should return the minimal set of values that should be in the session
   # in order to pass any filters (e.g. authentication) defined in
   # ArticlesController. Be sure to keep this updated too.
@@ -80,6 +92,11 @@ RSpec.describe ArticlesController, type: :controller do
         get :new, {}
         expect(assigns(:article)).to be_a_new(Article)
       end
+
+      it "assigns @brands"do
+        get :new, {}
+        expect(assigns(:brands)).to eq([brand1])
+      end
     end
 
     describe "GET #edit" do
@@ -87,6 +104,13 @@ RSpec.describe ArticlesController, type: :controller do
         article = Article.create! valid_attributes
         get :edit, {:id => article.to_param}
         expect(assigns(:article)).to eq(article)
+      end
+
+      it "assigns @brands"do
+        article = Article.create! valid_attributes_with_brand
+        get :edit, {:id => article.to_param}
+        expect(assigns(:brands)).to match_array(brand1)
+        expect(assigns(:article).brand_id).to eq brand1.id
       end
     end
 
@@ -99,9 +123,10 @@ RSpec.describe ArticlesController, type: :controller do
         end
 
         it "assigns a newly created article as @article" do
-          post :create, {:article => valid_attributes}
+          post :create, {:article => valid_attributes_with_brand}
           expect(assigns(:article)).to be_a(Article)
           expect(assigns(:article)).to be_persisted
+          expect(assigns(:article).brand_id).to eq brand1.id
         end
 
         it "redirects to the created article" do
@@ -131,8 +156,9 @@ RSpec.describe ArticlesController, type: :controller do
 
         it "updates the requested article" do
           article = Article.create! valid_attributes
-          updated_params = attributes_for(:article).merge({id: 1})
+          updated_params = attributes_for(:article).merge({id: 1, brand_id: brand1.id})
           article.reference = updated_params[:reference]
+          article.brand_id = updated_params[:brand_id]
           put :update, {:id => article.to_param, :article => updated_params}
           expect(assigns(:article)).to eq(article)
         end
