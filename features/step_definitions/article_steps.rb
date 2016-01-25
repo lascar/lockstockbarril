@@ -17,6 +17,7 @@ end
 
 When(/^the user fills the article's informations$/) do
   fill_in 'article_reference', with: 'test reference'
+  select 'article_brand', with: 'test brand'
 end
 
 When(/^the user creates a new article$/) do
