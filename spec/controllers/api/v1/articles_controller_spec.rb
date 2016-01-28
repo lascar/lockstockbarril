@@ -102,7 +102,7 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
     describe "GET #edit" do
       it "assigns the requested article as @article" do
         article = Article.create! valid_attributes
-        get :edit, {:id => article.to_param}
+        get :edit, {:id => article.to_param, :article => {:id => article.to_param}}
         expect(assigns(:article)).to eq(article)
       end
 
