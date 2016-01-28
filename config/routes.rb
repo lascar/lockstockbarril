@@ -1,16 +1,27 @@
+require 'api_constraints'
 Rails.application.routes.draw do
+  namespace :api do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
+      resources :articles
+      resources :brands
+    end
+    scope module: :v2, constraints: ApiConstraints.new(version: 2) do
+      resources :articles
+      resources :brands
+    end
+  end
   devise_for :users
   devise_scope :user do
       get "sign_in", to: "devise/sessions#new"
   end
  
+  root controller: 'api/v1/articles', action: :index
   resources :articles
   resources :brands
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root controller: :articles, action: :index
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

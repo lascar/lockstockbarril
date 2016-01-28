@@ -8,11 +8,11 @@ Given(/^two articles$/) do
 end
 
 Given(/^the user goes on the new article page$/) do
-  visit new_article_path
+  visit new_api_article_path
 end
 
 When(/^the user goes to the articles list$/) do
-  visit articles_path
+  visit api_articles_path
 end
 
 When(/^the user fills the article's informations$/) do
@@ -29,7 +29,7 @@ When(/^the user open this article$/) do
 end
 
 When(/^the user edit this article$/) do
-  visit edit_article_path(@article1)
+  visit edit_api_article_path(@article1)
 end
 
 When(/^the user commit the change$/) do

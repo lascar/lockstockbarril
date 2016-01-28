@@ -18,7 +18,7 @@ require 'rails_helper'
 # Message expectations are only used when there is no simpler way to specify
 # that an instance is receiving a specific message.
 
-RSpec.describe ArticlesController, type: :controller do
+RSpec.describe Api::V1::ArticlesController, type: :controller do
 
   # This should return the minimal set of attributes required to create a valid
   # Article. As you add validations to Article, be sure to
@@ -131,7 +131,7 @@ RSpec.describe ArticlesController, type: :controller do
 
         it "redirects to the created article" do
           post :create, {:article => valid_attributes}
-          expect(response).to redirect_to(Article.last)
+          expect(response).to redirect_to(api_article_path(Article.last))
         end
       end
 
@@ -166,7 +166,7 @@ RSpec.describe ArticlesController, type: :controller do
         it "redirects to the article" do
           article = Article.create! valid_attributes
           put :update, {:id => article.to_param, :article => valid_attributes}
-          expect(response).to redirect_to(article)
+          expect(response).to redirect_to(api_article_path(article))
         end
       end
 
@@ -180,7 +180,7 @@ RSpec.describe ArticlesController, type: :controller do
         it "re-renders the 'edit' template" do
           article = Article.create! valid_attributes
           put :update, {:id => article.to_param, :article => invalid_attributes}
-          expect(response).to redirect_to(edit_article_path(article))
+          expect(response).to redirect_to(edit_api_article_path(article))
         end
       end
     end
@@ -196,7 +196,7 @@ RSpec.describe ArticlesController, type: :controller do
       it "redirects to the articles list" do
         article = Article.create! valid_attributes
         delete :destroy, {:id => article.to_param}
-        expect(response).to redirect_to(articles_url)
+        expect(response).to redirect_to(api_articles_url)
       end
     end
   end

@@ -8,7 +8,7 @@ RSpec.describe Article, type: :model do
     it 'does not allow to create a brand with the same name' do
       expect {
         create(:article, reference: 'test1', brand: brand1 )
-      }.to raise_error(ActiveRecord::RecordNotUnique)
+      }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 end

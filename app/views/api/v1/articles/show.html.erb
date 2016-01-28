@@ -11,5 +11,5 @@
   <strong>Brand: <strong>
   <%= @article.brand ? @article.brand.name : 'None' %>
 </p>
-<%= link_to 'Edit', edit_article_path(@article) %> |
-<%= link_to 'Back', articles_path %>
+<%= link_to 'Edit', edit_api_article_path(@article) %> |
+<%= link_to 'Back', api_articles_path %>

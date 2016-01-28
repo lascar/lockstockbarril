@@ -1,0 +1,7 @@
+<h1>Editing Article</h1>
+
+<%= form_for @article, url: api_article_path, method: :patch do |form| %>
+  <%= render 'form', form: form %>
+<% end %>
+<%= link_to 'Show', api_article_path(@article) %> |
+<%= link_to 'Back', api_articles_path %>
