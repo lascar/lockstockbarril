@@ -90,7 +90,7 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
     describe "GET #new" do
       it "assigns a new article as @article" do
         get :new, {}
-        expect(assigns(:article)).to be_a_new(Article)
+        expect(assigns(:resource)).to be_a_new(Article)
       end
 
       it "assigns @brands"do
@@ -103,14 +103,14 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
       it "assigns the requested article as @article" do
         article = Article.create! valid_attributes
         get :edit, {:id => article.to_param, :article => {:id => article.to_param}}
-        expect(assigns(:article)).to eq(article)
+        expect(assigns(:resource)).to eq(article)
       end
 
       it "assigns @brands"do
         article = Article.create! valid_attributes_with_brand
         get :edit, {:id => article.to_param}
         expect(assigns(:brands)).to match_array(brand1)
-        expect(assigns(:article).brand_id).to eq brand1.id
+        expect(assigns(:resource).brand_id).to eq brand1.id
       end
     end
 
@@ -124,9 +124,9 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
 
         it "assigns a newly created article as @article" do
           post :create, {:article => valid_attributes_with_brand}
-          expect(assigns(:article)).to be_a(Article)
-          expect(assigns(:article)).to be_persisted
-          expect(assigns(:article).brand_id).to eq brand1.id
+          expect(assigns(:resource)).to be_a(Article)
+          expect(assigns(:resource)).to be_persisted
+          expect(assigns(:resource).brand_id).to eq brand1.id
         end
 
         it "redirects to the created article" do
@@ -138,7 +138,7 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
       context "with invalid params" do
         it "assigns a newly created but unsaved article as @article" do
           post :create, {:article => invalid_attributes}
-          expect(assigns(:article)).to be_a_new(Article)
+          expect(assigns(:resource)).to be_a_new(Article)
         end
 
         it "re-renders the 'new' template" do
@@ -151,16 +151,15 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
     describe "PUT #update" do
       context "with valid params" do
         let(:new_attributes) {
-          skip("Add a hash of attributes valid for your model")
+          attributes_for(:article).merge({id: 1, brand_id: brand1.id})
         }
 
         it "updates the requested article" do
           article = Article.create! valid_attributes
-          updated_params = attributes_for(:article).merge({id: 1, brand_id: brand1.id})
-          article.reference = updated_params[:reference]
-          article.brand_id = updated_params[:brand_id]
-          put :update, {:id => article.to_param, :article => updated_params}
-          expect(assigns(:article)).to eq(article)
+          article.reference = new_attributes[:reference]
+          article.brand_id = new_attributes[:brand_id]
+          put :update, {:id => article.to_param, :article => new_attributes}
+          expect(assigns(:resource)).to eq(article)
         end
 
         it "redirects to the article" do
@@ -174,7 +173,7 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
         it "assigns the article as @article" do
           article = Article.create! valid_attributes
           put :update, {:id => article.to_param, :article => invalid_attributes}
-          expect(assigns(:article)).to eq(article)
+          expect(assigns(:resource)).to eq(article)
         end
 
         it "re-renders the 'edit' template" do

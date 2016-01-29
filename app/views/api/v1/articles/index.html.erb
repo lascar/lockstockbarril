@@ -10,7 +10,7 @@
   </thead>
 
   <tbody>
-    <% @articles.each do |article| %>
+    <% @resources.each do |article| %>
       <tr>
         <td><%= article.reference %></td>
         <td><%= link_to 'Show', api_article_path(article) %></td>

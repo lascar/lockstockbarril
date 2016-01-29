@@ -1,8 +1,8 @@
 <h1>Editing Brand</h1>
 
-<%= form_for @brand, url: api_brand_path, method: :patch do |form| %>
+<%= form_for @resource, url: api_brand_path, method: :patch do |form| %>
   <%= render 'form', form: form %>
 <% end %>
 
-<%= link_to 'Show', api_brand_path(@brand) %> |
+<%= link_to 'Show', api_brand_path(@resource) %> |
 <%= link_to 'Back', api_brands_path %>

@@ -3,7 +3,8 @@ module Api
     class ArticlesController < ApplicationController
       include CRUD
       resource_name 'article'
-      permitted_attributes [:reference]
+      additional_resources ['brand']
+      permitted_attributes [:reference, :brand_id]
     end
   end
 end
