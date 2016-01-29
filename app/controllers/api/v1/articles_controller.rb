@@ -1,82 +1,10 @@
 module Api
   module V1
     class ArticlesController < ApplicationController
-      before_action :authenticate_user!
-      before_action :set_article, only: [:show, :edit, :update, :destroy]
-
-      # GET /articles
-      # GET /articles.json
-      def index
-        @articles = Article.all
-      end
-
-      # GET /articles/1
-      # GET /articles/1.json
-      def show
-      end
-
-      # GET /articles/new
-      def new
-        @article = Article.new
-        @brands = Brand.all
-      end
-
-      # GET /articles/1/edit
-      def edit
-        @brands = Brand.all
-      end
-
-      # POST /articles
-      # POST /articles.json
-      def create
-        @article = Article.new(article_params)
-        @brands = Brand.all
-
-        respond_to do |format|
-          if @article.save
-            format.html { redirect_to api_article_path(@article), notice: 'Article was successfully created.' }
-            format.json { render :show, status: :created, location: @article }
-          else
-            format.html { render :new }
-            format.json { render json: @article.errors, status: :unprocessable_entity }
-          end
-        end
-      end
-
-      # PATCH/PUT /articles/1
-      # PATCH/PUT /articles/1.json
-      def update
-        respond_to do |format|
-          if @article.update(article_params)
-            format.html { redirect_to api_article_path(@article), notice: 'Article was successfully updated.' }
-            format.json { render :show, status: :ok, location: @article }
-          else
-            format.html { redirect_to edit_api_article_path(@article), notice: 'unprocessable entity' }
-            format.json { render json: @article.errors, status: :unprocessable_entity }
-          end
-        end
-      end
-
-      # DELETE /articles/1
-      # DELETE /articles/1.json
-      def destroy
-        @article.destroy
-        respond_to do |format|
-          format.html { redirect_to api_articles_url, notice: 'Article was successfully destroyed.' }
-          format.json { head :no_content }
-        end
-      end
-
-      private
-      # Use callbacks to share common setup or constraints between actions.
-      def set_article
-        @article = Article.find(params[:id])
-      end
-
-      # Never trust parameters from the scary internet, only allow the white list through.
-      def article_params
-        params.require(:article).permit(:reference, :brand_id)
-      end
+      include CRUD
+      resource_name 'article'
+      additional_resources ['brand']
+      permitted_attributes [:reference, :brand_id]
     end
   end
 end
