@@ -52,61 +52,61 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
   # ArticlesController. Be sure to keep this updated too.
   let(:valid_session) { {} }
 
-  describe "user not auth" do
-    it "#new redirect to sign_in" do
+  describe 'user not auth' do
+    it '#new redirect to sign_in' do
       get :new
       expect(response).to redirect_to('/users/sign_in')
     end
 
-    it "#edit redirect to sign_in" do
+    it '#edit redirect to sign_in' do
       get :edit, id:1
       expect(response).to redirect_to('/users/sign_in')
     end
 
-    it "#new redirect to sign_in" do
+    it '#new redirect to sign_in' do
       post :create, {:article => valid_attributes}
       expect(response).to redirect_to('/users/sign_in')
     end
 
-    it "#update redirect to sign_in" do
+    it '#update redirect to sign_in' do
       article = Article.create! valid_attributes
       put :update, {:id => article.to_param, :article => new_valid_attributes}
       expect(response).to redirect_to('/users/sign_in')
     end
 
-    it "#new redirect to sign_in" do
+    it '#new redirect to sign_in' do
       article = Article.create! valid_attributes
       delete :destroy, {:id => article.to_param}
       expect(response).to redirect_to('/users/sign_in')
     end
   end
 
-  describe "user auth" do
+  describe 'user auth' do
     before :each do
       @user = create(:user)
       login_with @user
     end
 
-    describe "GET #new" do
-      it "assigns a new article as @article" do
+    describe 'GET #new' do
+      it 'assigns a new article as @article' do
         get :new, {}
         expect(assigns(:resource)).to be_a_new(Article)
       end
 
-      it "assigns @brands"do
+      it 'assigns @brands'do
         get :new, {}
         expect(assigns(:brands)).to eq([brand1])
       end
     end
 
-    describe "GET #edit" do
-      it "assigns the requested article as @article" do
+    describe 'GET #edit' do
+      it 'assigns the requested article as @article' do
         article = Article.create! valid_attributes
         get :edit, {:id => article.to_param, :article => {:id => article.to_param}}
         expect(assigns(:resource)).to eq(article)
       end
 
-      it "assigns @brands"do
+      it 'assigns @brands' do
         article = Article.create! valid_attributes_with_brand
         get :edit, {:id => article.to_param}
         expect(assigns(:brands)).to match_array(brand1)
@@ -114,47 +114,47 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
       end
     end
 
-    describe "POST #create" do
-      context "with valid params" do
-        it "creates a new Article" do
+    describe 'POST #create' do
+      context 'with valid params' do
+        it 'creates a new Article' do
           expect {
             post :create, {:article => valid_attributes}
           }.to change(Article, :count).by(1)
         end
 
-        it "assigns a newly created article as @article" do
+        it 'assigns a newly created article as @article' do
           post :create, {:article => valid_attributes_with_brand}
           expect(assigns(:resource)).to be_a(Article)
           expect(assigns(:resource)).to be_persisted
           expect(assigns(:resource).brand_id).to eq brand1.id
         end
 
-        it "redirects to the created article" do
+        it 'redirects to the created article' do
           post :create, {:article => valid_attributes}
           expect(response).to redirect_to(api_article_path(Article.last))
         end
       end
 
-      context "with invalid params" do
-        it "assigns a newly created but unsaved article as @article" do
+      context 'with invalid params' do
+        it 'assigns a newly created but unsaved article as @article' do
           post :create, {:article => invalid_attributes}
           expect(assigns(:resource)).to be_a_new(Article)
         end
 
-        it "re-renders the 'new' template" do
+        it 're-renders the "new" template' do
           post :create, {:article => invalid_attributes}
-          expect(response).to render_template("new")
+          expect(response).to render_template('new')
         end
       end
     end
 
-    describe "PUT #update" do
-      context "with valid params" do
+    describe 'PUT #update' do
+      context 'with valid params' do
         let(:new_attributes) {
           attributes_for(:article).merge({id: 1, brand_id: brand1.id})
         }
 
-        it "updates the requested article" do
+        it 'updates the requested article' do
           article = Article.create! valid_attributes
           article.reference = new_attributes[:reference]
           article.brand_id = new_attributes[:brand_id]
@@ -162,21 +162,21 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
           expect(assigns(:resource)).to eq(article)
         end
 
-        it "redirects to the article" do
+        it 'redirects to the article' do
           article = Article.create! valid_attributes
           put :update, {:id => article.to_param, :article => valid_attributes}
           expect(response).to redirect_to(api_article_path(article))
         end
       end
 
-      context "with invalid params" do
-        it "assigns the article as @article" do
+      context 'with invalid params' do
+        it 'assigns the article as @article' do
           article = Article.create! valid_attributes
           put :update, {:id => article.to_param, :article => invalid_attributes}
           expect(assigns(:resource)).to eq(article)
         end
 
-        it "re-renders the 'edit' template" do
+        it 're-renders the "edit" template' do
           article = Article.create! valid_attributes
           put :update, {:id => article.to_param, :article => invalid_attributes}
           expect(response).to redirect_to(edit_api_article_path(article))
@@ -184,15 +184,15 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
       end
     end
 
-    describe "DELETE #destroy" do
-      it "destroys the requested article" do
+    describe 'DELETE #destroy' do
+      it 'destroys the requested article' do
         article = Article.create! valid_attributes
         expect {
           delete :destroy, {:id => article.to_param}
         }.to change(Article, :count).by(-1)
       end
 
-      it "redirects to the articles list" do
+      it 'redirects to the articles list' do
         article = Article.create! valid_attributes
         delete :destroy, {:id => article.to_param}
         expect(response).to redirect_to(api_articles_url)

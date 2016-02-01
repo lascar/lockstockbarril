@@ -16,8 +16,6 @@ Rails.application.routes.draw do
   end
  
   root controller: 'api/v1/articles', action: :index
-  resources :articles
-  resources :brands
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
