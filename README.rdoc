@@ -18,7 +18,9 @@ The requirments are:
 
 * * * reference is uniq in a brand
 
-* * can have suppliers
+* * can have supplies
+
+* * * have supplier
 
 * * * can have buying price
 
@@ -38,7 +40,17 @@ The requirments are:
 
 * * have name
 
-* * can have addresse and articles
+* * can have addresse
+
+* * can have supplies
+
+* supply
+
+* * have article
+
+* * have supplier
+
+* * have price
 
 * stocks
 
