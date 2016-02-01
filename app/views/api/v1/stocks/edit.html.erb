@@ -1,0 +1,8 @@
+<h1>Editing Stock</h1>
+
+<%= form_for @resource, url: api_stock_path, method: :patch do |form| %>
+  <%= render 'form', form: form %>
+<% end %>
+
+<%= link_to 'Show', api_stock_path(@resource) %> |
+<%= link_to 'Back', api_stocks_path %>

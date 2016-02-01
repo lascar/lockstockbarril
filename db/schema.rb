@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160125143148) do
+ActiveRecord::Schema.define(version: 20160201163250) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "reference"
@@ -31,6 +31,32 @@ ActiveRecord::Schema.define(version: 20160125143148) do
 
   add_index "brands", ["name"], name: "index_brands_on_name", unique: true
 
+  create_table "stocks", force: :cascade do |t|
+    t.string   "name"
+    t.decimal  "capacity",   precision: 10, scale: 1, default: 0.1
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+  end
+
+  create_table "suppliers", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "supplies", force: :cascade do |t|
+    t.string   "ref_supplier"
+    t.integer  "article_id"
+    t.integer  "supplier_id"
+    t.decimal  "price",        precision: 15, scale: 2, default: 0.0
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+  end
+
+  add_index "supplies", ["article_id"], name: "index_supplies_on_article_id"
+  add_index "supplies", ["ref_supplier"], name: "index_supplies_on_ref_supplier"
+  add_index "supplies", ["supplier_id"], name: "index_supplies_on_supplier_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -44,10 +70,8 @@ ActiveRecord::Schema.define(version: 20160125143148) do
     t.string   "last_sign_in_ip"
     t.datetime "created_at",                          null: false
     t.datetime "updated_at",                          null: false
-    t.string   "authentication_token"
   end
 
-  add_index "users", ["authentication_token"], name: "index_users_on_authentication_token"
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 

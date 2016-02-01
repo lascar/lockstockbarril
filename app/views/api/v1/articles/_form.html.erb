@@ -10,13 +10,13 @@
   </div>
 <% end %>
 <p>
-<%= form.label :reference %>
-<%= form.text_field :reference %>
+  <%= form.label :reference %>
+  <%= form.text_field :reference %>
 </p>
 
 <p>
-<%= form.label :brand %>
-<%= form.collection_select(:brand_id, @brands, :id, :name, {:include_blank => true}) %>
+  <%= form.label :brand %>
+  <%= form.collection_select(:brand_id, @brands, :id, :name, {:include_blank => true}) %>
 </p>
 
 <p class='buttons'>

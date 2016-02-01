@@ -64,4 +64,22 @@ The requirments are:
 
 * * have name
 
-* * can have articles
+* * can have supplies
+
+* * can have articles through supplies
+
+* address
+
+* * have street
+
+* * have street number
+
+* * have additional information
+
+* * have zip code
+
+* * have town
+
+* * state
+
+* * country

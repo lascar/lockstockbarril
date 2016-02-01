@@ -1,0 +1,7 @@
+<h1>Editing Supplier</h1>
+
+<%= form_for @resource, url: api_supplier_path, method: :patch do |form| %>
+<%= render 'form', form: form %>
+<% end %>
+<%= link_to 'Show', api_supplier_path(@resource) %> |
+<%= link_to 'Back', api_suppliers_path %>

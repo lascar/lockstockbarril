@@ -4,10 +4,11 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
       resources :articles
       resources :brands
+      resources :suppliers
+      resources :supplies
+      resources :stocks
     end
     scope module: :v2, constraints: ApiConstraints.new(version: 2) do
-      resources :articles
-      resources :brands
     end
   end
   devise_for :users
