@@ -26,12 +26,6 @@ The requirments are:
 
 * * * can have a supplier's reference
 
-* * can have stocks
-
-* * * have quantity
-
-* * * can have location
-
 * brands
 
 * * have name
@@ -52,6 +46,12 @@ The requirments are:
 
 * * have price
 
+* * can have stocks
+
+* * * have quantity
+
+* * * can have location
+
 * stocks
 
 * * have name, address
@@ -64,4 +64,24 @@ The requirments are:
 
 * * have name
 
-* * can have articles
+* * have stock
+
+* * can have supplies
+
+* * can have articles through supplies
+
+* address
+
+* * have street
+
+* * have street number
+
+* * have additional information
+
+* * have zip code
+
+* * have town
+
+* * state
+
+* * country

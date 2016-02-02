@@ -10,14 +10,21 @@
   </div>
 <% end %>
 <p>
-<%= form.label :reference %>
-<%= form.text_field :reference %>
+  <%= form.label :reference %>
+  <%= form.text_field :reference %>
 </p>
 
 <p>
-<%= form.label :brand %>
-<%= form.collection_select(:brand_id, @brands, :id, :name, {:include_blank => true}) %>
+  <%= form.label :brand %>
+  <%= form.collection_select(:brand_id, @brands, :id, :name, {:include_blank => true}) %>
 </p>
+
+<div>
+  <% @suppliers.all.each do |supplier| %>
+    <%= check_box_tag "article[supplier_ids][]", supplier.id, form.object.suppliers.include?(supplier) %>
+    <%= supplier.name %>
+  <% end %>
+</div>
 
 <p class='buttons'>
 <%= form.submit %>

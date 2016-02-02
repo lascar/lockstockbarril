@@ -1,0 +1,7 @@
+<h1>New Location</h1>
+
+<%= form_for @resource, url: api_locations_path, method: :post do |form| %>
+  <%= render 'form', form: form %>
+<% end %>
+
+<%= link_to 'Back', api_locations_path %>

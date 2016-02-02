@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<h2>Supply</h2>
+
+<p>
+  <strong>Reference Supplier: <strong>
+  <%= @resource.ref_supplier %>
+</p>
+
+<p>
+  <strong>Article: <strong>
+  <%= @resource.article ? @resource.article.reference : 'None' %>
+</p>
+
+<p>
+  <strong>Supplier: <strong>
+  <%= @resource.supplier ? @resource.supplier.name : 'None' %>
+</p>
+
+<p>
+  <strong>Price: <strong>
+  <%= @resource.price %>
+</p>
+
+<%= link_to 'Edit', edit_api_supply_path(@resource) %> |
+<%= link_to 'Back', api_supplies_path %>

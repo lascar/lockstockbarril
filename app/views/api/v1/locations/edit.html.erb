@@ -1,0 +1,8 @@
+<h1>Editing Location</h1>
+
+<%= form_for @resource, url: api_location_path, method: :patch do |form| %>
+  <%= render 'form', form: form %>
+<% end %>
+
+<%= link_to 'Show', api_location_path(@resource) %> |
+<%= link_to 'Back', api_locations_path %>

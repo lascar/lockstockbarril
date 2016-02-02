@@ -3,5 +3,6 @@
 <%= form_for @resource, url: api_article_path, method: :patch do |form| %>
   <%= render 'form', form: form %>
 <% end %>
+
 <%= link_to 'Show', api_article_path(@resource) %> |
 <%= link_to 'Back', api_articles_path %>

@@ -1,0 +1,64 @@
+  <% if @resource.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this stock from being saved:</h2>
+
+      <ul>
+      <% @resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<p>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+</p>
+
+<p>
+  <%= form.label :capacity %>
+  <%= form.text_field :capacity %>
+</p>
+
+<%= form.fields_for :address do |f| %>
+  <div>
+    Address :
+    <p>
+    <%= form.label :street %>
+    <%= f.text_field :street %>
+    </p>
+
+    <p>
+    <%= form.label :street_number %>
+    <%= f.text_field :street_number  %>
+    </p>
+
+    <p>
+    <%= form.label :additional_information %>
+    <%= f.text_field :additional_information %>
+    </p>
+
+    <p>
+    <%= form.label :zipcode %>
+    <%= f.text_field :zipcode %>
+    </p>
+
+    <p>
+    <%= form.label :town %>
+    <%= f.text_field :town %>
+    </p>
+
+    <p>
+    <%= form.label :state %>
+    <%= f.text_field :state %>
+    </p>
+
+    <p>
+    <%= form.label :country %>
+    <%= f.text_field :country %>
+    </p>
+  </div>
+<% end %>
+
+<p class='buttons'>
+<%= form.submit %>
+</p>

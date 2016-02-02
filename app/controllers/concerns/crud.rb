@@ -13,6 +13,12 @@ module CRUD
       end
     end
 
+    def self.additional_resources_for_create(resource)
+      define_method :additional_resources_for_create do
+        resource
+      end
+    end
+
     def self.additional_resources(resource)
       define_method :additional_resources do
         resource
@@ -51,7 +57,8 @@ module CRUD
     set_resource_new(permit_attributes)
     respond_to do |format|
       if @resource.save
-        format.html { redirect_to resource_path(@resource), notice: 'Article was successfully created.' }
+        set_additional_resources_for_create
+        format.html { redirect_to resource_path(@resource), notice: 'successfully created.' }
         format.json { render :show, status: :created, location: @resource }
       else
         format.html { render :new }
@@ -65,7 +72,7 @@ module CRUD
   def update
     respond_to do |format|
       if @resource.update(permit_attributes)
-        format.html { redirect_to resource_path(@resource), notice: 'Article was successfully updated.' }
+        format.html { redirect_to resource_path(@resource), notice: 'successfully updated.' }
         format.json { render :show, status: :ok, location: @resource }
       else
         format.html { redirect_to edit_resource_path, notice: 'unprocessable entity' }
@@ -118,6 +125,12 @@ module CRUD
       instance_variable_set('@resource', resource_name.classify.constantize.find(params[:id]))
     rescue ActiveRecord::RecordNotFound
       false
+    end
+  end
+
+  def set_additional_resources_for_create
+    additional_resources_for_create.each do |resource|
+      resource_for_new = resource.classify.constantize.create(addresseable_id: @resource.id, addresseable_type: resource_name.capitalize)
     end
   end
 
