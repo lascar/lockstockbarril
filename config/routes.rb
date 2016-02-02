@@ -7,6 +7,8 @@ Rails.application.routes.draw do
       resources :suppliers
       resources :supplies
       resources :stocks
+      resources :locations
+      resources :addresses
     end
     scope module: :v2, constraints: ApiConstraints.new(version: 2) do
     end

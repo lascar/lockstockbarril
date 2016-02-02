@@ -11,7 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160201163250) do
+ActiveRecord::Schema.define(version: 20160202082446) do
+
+  create_table "addresses", force: :cascade do |t|
+    t.string   "street"
+    t.string   "street_number"
+    t.string   "additional_information"
+    t.string   "zipcode"
+    t.string   "town",                   default: "Madrid"
+    t.string   "state",                  default: "Madrid"
+    t.string   "country",                default: "España"
+    t.datetime "created_at",                                null: false
+    t.datetime "updated_at",                                null: false
+  end
 
   create_table "articles", force: :cascade do |t|
     t.string   "reference"
@@ -30,6 +42,16 @@ ActiveRecord::Schema.define(version: 20160201163250) do
   end
 
   add_index "brands", ["name"], name: "index_brands_on_name", unique: true
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "stock_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "locations", ["name", "stock_id"], name: "index_locations_on_name_and_stock_id", unique: true
+  add_index "locations", ["stock_id"], name: "index_locations_on_stock_id"
 
   create_table "stocks", force: :cascade do |t|
     t.string   "name"

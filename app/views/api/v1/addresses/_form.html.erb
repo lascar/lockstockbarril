@@ -1,0 +1,49 @@
+<% if @resource.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@resource.errors.count, "error") %> prohibited this address from being saved:</h2>
+
+    <ul>
+      <% @resource.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+<p>
+  <%= form.label :street %>
+  <%= form.text_field :street %>
+</p>
+
+<p>
+  <%= form.label :street_number %>
+  <%= form.text_field :street_number %>
+</p>
+
+<p>
+  <%= form.label :additional_information %>
+  <%= form.text_field :additional_information %>
+</p>
+
+<p>
+  <%= form.label :zipcode %>
+  <%= form.text_field :zipcode %>
+</p>
+
+<p>
+  <%= form.label :town %>
+  <%= form.text_field :town %>
+</p>
+
+<p>
+  <%= form.label :state %>
+  <%= form.text_field :state %>
+</p>
+
+<p>
+  <%= form.label :country %>
+  <%= form.text_field :country %>
+</p>
+
+<p class='buttons'>
+<%= form.submit %>
+</p>
