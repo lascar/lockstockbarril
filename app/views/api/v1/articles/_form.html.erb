@@ -19,6 +19,13 @@
   <%= form.collection_select(:brand_id, @brands, :id, :name, {:include_blank => true}) %>
 </p>
 
+<div>
+  <% @suppliers.all.each do |supplier| %>
+    <%= check_box_tag "article[supplier_ids][]", supplier.id, form.object.suppliers.include?(supplier) %>
+    <%= supplier.name %>
+  <% end %>
+</div>
+
 <p class='buttons'>
 <%= form.submit %>
 </p>
