@@ -1,7 +1,7 @@
 require 'api_constraints'
 Rails.application.routes.draw do
   namespace :api do
-    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true) do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true), defaults: { format: :json } do
       resources :articles
       resources :brands
       resources :suppliers
@@ -10,7 +10,7 @@ Rails.application.routes.draw do
       resources :locations
       resources :addresses
     end
-    scope module: :v2, constraints: ApiConstraints.new(version: 2) do
+    scope module: :v2, constraints: ApiConstraints.new(version: 2), defaults: { format: :json } do
     end
   end
   devise_for :users
