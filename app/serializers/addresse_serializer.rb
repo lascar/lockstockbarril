@@ -1,5 +1,5 @@
-# app/serializers/api/v1/address_serializer.rb
-class Api::V1::AddressSerializer < ActiveModel::Serializer
+# app/serializers/address_serializer.rb
+class AddressSerializer < ActiveModel::Serializer
 
   attributes :id, :zipcode, :town, :state, :country, :url
 

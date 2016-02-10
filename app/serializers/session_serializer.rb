@@ -1,5 +1,5 @@
-# app/serializers/api/v1/session_serializer.rb
-class Api::V1::SessionSerializer < ActiveModel::Serializer
+# app/serializers/session_serializer.rb
+class SessionSerializer < ActiveModel::Serializer
 
   attributes :email, :token_type, :user_id, :access_token
 
