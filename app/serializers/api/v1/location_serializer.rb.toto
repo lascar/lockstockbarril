@@ -1,0 +1,10 @@
+# app/serializers/api/v1/location_serializer.rb
+class Api::V1::LocationSerializer < ActiveModel::Serializer
+
+  attributes :name, :url
+
+  def url 
+    api_address_url(object)
+  end  
+
+end

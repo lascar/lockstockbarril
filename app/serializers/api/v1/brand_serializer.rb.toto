@@ -1,0 +1,10 @@
+# app/serializers/api/v1/brand_serializer.rb
+class Api::V1::BrandSerializer < ActiveModel::Serializer
+
+  attributes :name, :url
+
+  def url 
+    api_brand_url(object)
+  end  
+
+end

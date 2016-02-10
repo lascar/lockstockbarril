@@ -9,14 +9,13 @@ Rails.application.routes.draw do
       resources :stocks
       resources :locations
       resources :addresses
+      resources :sessions, only: [:create, :destroy]
+      resources :users, only: [:show, :create, :update, :destroy]
     end
     scope module: :v2, constraints: ApiConstraints.new(version: 2), defaults: { format: :json } do
     end
   end
-  devise_for :users
-  devise_scope :user do
-      get "sign_in", to: "devise/sessions#new"
-  end
+  devise_for :users, only: []
  
   root controller: 'api/v1/articles', action: :index
   # The priority is based upon order of creation: first created -> highest priority.

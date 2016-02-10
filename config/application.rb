@@ -18,5 +18,14 @@ module Lockstockbarril
         g.helper = false
     end
     config.active_record.raise_in_transactional_callbacks = true
+
+    config.middleware.insert_before 'Rack::Runtime', 'Rack::Cors' do
+      allow do
+        origins '*'
+        resource '*',
+                 headers: :any,
+                 methods: [:get, :put, :post, :patch, :delete, :options]
+      end
+    end
   end
 end

@@ -7,7 +7,8 @@ require 'spec_helper'
 require 'rspec/rails'
 require 'factory_girl_rails'
 require 'database_cleaner'
-require_relative 'support/controller_helpers'
+require 'shoulda-matchers'
+require_relative 'support/request_helpers'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -30,7 +31,12 @@ Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  config.include ControllerHelpers, type: :controller
+  config.include Request::JsonHelpers, type: :controller
+  config.include Request::HeadersHelpers, type: :controller
+  config.before(:each, type: :controller) do
+    include_default_accept_headers
+  end
+  
   include Warden::Test::Helpers
   Warden.test_mode!
 
@@ -70,3 +76,10 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, type: :controller
   config.include Warden::Test::Helpers
 end
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+

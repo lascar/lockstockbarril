@@ -1,11 +1,13 @@
+# index, show, create, update and destroy
 module CRUD
   extend ActiveSupport::Concern
 
   included do
-    before_action :authenticate_user!
-    before_action :set_resource, only: [:show, :edit, :update, :destroy]
+    respond_to :json
+    before_action :authenticate_with_token!, only: [:create, :update, :destroy]
+    before_action :set_resource, only: [:show, :update, :destroy]
     before_action :set_resources, only: [:index, :destroy]
-    before_action :set_additional_resources, only: [:new, :edit, :create, :update]
+    before_action :set_additional_resources, only: [:create, :update]
 
     def self.resource_name(resource_name)
       define_method :resource_name do
@@ -26,62 +28,39 @@ module CRUD
     end
   end
 
-  # GET /articles
   # GET /articles.json
   def index
+    respond_with @resources
   end
 
-  # GET /articles/1
   # GET /articles/1.json
   def show
+    respond_with @resource
   end
 
-  # GET /articles/new
-  def new
-    set_resource_new
-  end
-
-  # GET /articles/1/edit
-  def edit
-  end
-
-  # POST /articles
   # POST /articles.json
   def create
     set_resource_new(permit_attributes)
-    respond_to do |format|
-      if @resource.save
-        format.html { redirect_to resource_path(@resource), notice: 'successfully created.' }
-        format.json { render :show, status: :created, location: @resource }
-      else
-        format.html { render :new }
-        format.json { render json: @resource.errors, status: :unprocessable_entity }
-      end
+    if @resource.save
+      render json: @resource, status: 201
+    else
+      render json: { errors: @resource.errors }, status: 422
     end
   end
 
-  # PATCH/PUT /articles/1
   # PATCH/PUT /articles/1.json
   def update
-    respond_to do |format|
-      if @resource.update(permit_attributes)
-        format.html { redirect_to resource_path(@resource), notice: 'successfully updated.' }
-        format.json { render :show, status: :ok, location: @resource }
-      else
-        format.html { redirect_to edit_resource_path, notice: 'unprocessable entity' }
-        format.json { render json: @resource.errors, status: :unprocessable_entity }
-      end
+    if @resource.update(permit_attributes)
+      render json: @resource, status: 200
+    else
+      render json: { errors: @resource.errors }, status: 422
     end
   end
 
-  # DELETE /articles/1
   # DELETE /articles/1.json
   def destroy
     @resource.destroy
-    respond_to do |format|
-      format.html { redirect_to resources_path, notice: 'Successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    head 204
   end
 
   private

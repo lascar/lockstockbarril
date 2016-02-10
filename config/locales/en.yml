@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  unauthorized: "Unauthorized"
+  sessions_controller:
+    invalid_login_attempt: "Invalid login attempt"
