@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :article do
-    sequence(:reference) { |n| "reference#{n}" }
+    reference {Faker::Name.name}
     brand
   end
 

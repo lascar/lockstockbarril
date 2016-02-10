@@ -1,0 +1,6 @@
+# app/serializers/api/v1/session_serializer.rb
+class Api::V1::ArticlesSerializer < ActiveModel::Serializer
+
+  attributes :reference
+
+end

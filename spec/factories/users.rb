@@ -1,7 +1,9 @@
 FactoryGirl.define do
   factory :user do
-    sequence(:email) { |n| "username#{n}@mail.com" }
+    name {Faker::Name.name}
+    email { Faker::Internet.email }
     password 'password'
+    password_confirmation 'password'
   end
 
   factory :user_invalid_request, class: User do

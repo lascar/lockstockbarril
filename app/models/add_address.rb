@@ -1,3 +1,4 @@
+# addressable, add an addres
 module AddAddress
   extend ActiveSupport::Concern
   included do

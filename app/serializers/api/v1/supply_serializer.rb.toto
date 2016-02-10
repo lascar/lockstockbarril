@@ -1,0 +1,10 @@
+# app/serializers/api/v1/supply_serializer.rb
+class Api::V1::SupplySerializer < ActiveModel::Serializer
+
+  attributes :ref_supplier, :price, :url
+
+  def url 
+    api_supply_url(object)
+  end  
+
+end
