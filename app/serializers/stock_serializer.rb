@@ -1,5 +1,5 @@
 # app/serializers/api/v1/stock_serializer.rb
-class Api::V1::StockSerializer < ActiveModel::Serializer
+class StockSerializer < ActiveModel::Serializer
 
   attributes :name, :capacity, :url
   has_one :address

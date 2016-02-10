@@ -4,12 +4,13 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "GET #show" do
     before(:each) do
       @user = create :user
+      api_authorization_header @user.access_token
       get :show, id: @user.id
     end
 
     it "returns the information about a reporter on a hash" do
       user_response = json_response
-      expect(user_response[:email]).to eql @user.email
+      expect(user_response[:user][:email]).to eql @user.email
     end
 
     it { is_expected.to respond_with 200 }
@@ -18,13 +19,15 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "POST #create" do
     context "when is successfully created" do
       before(:each) do
+        @user = create :user
+        api_authorization_header @user.access_token
         @user_attributes = attributes_for :user
         post :create, { user: @user_attributes }
       end
       
       it "renders the json representation for the user record just created" do
         user_response = json_response
-        expect(user_response[:email]).to eql @user_attributes[:email]
+        expect(user_response[:user][:email]).to eql @user_attributes[:email]
       end
       
       it { is_expected.to respond_with 201 }
@@ -33,6 +36,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "when is not created" do
       before(:each) do
         #notice I'm not including the email
+        @user = create :user
+        api_authorization_header @user.access_token
         @invalid_user_attributes = { password: "12345678",
         password_confirmation: "12345678" }
         post :create, { user: @invalid_user_attributes }
@@ -62,7 +67,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
       it "renders the json representation for the updated user" do
         user_response = json_response
-        expect(user_response[:email]).to eql "newmail@example.com"
+        expect(user_response[:user][:email]).to eql "newmail@example.com"
       end
       it { is_expected.to respond_with 200 }
     end

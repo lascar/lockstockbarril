@@ -11,7 +11,7 @@ describe Api::V1::SessionsController do
       end
       it "returns the user record corresponding to the given credentials" do
         @user.reload
-        expect(json_response[:access_token]).to eql @user.access_token
+        expect(json_response[:user][:access_token]).to eql @user.access_token
       end
       it { is_expected.to respond_with 200 }
     end

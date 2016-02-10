@@ -35,7 +35,7 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
       end
       it 'returns the information about a reporter on a hash' do
         article_response = json_response
-        expect(article_response[:reference]).to eql @article.reference
+        expect(article_response[:article][:reference]).to eql @article.reference
       end
       it { is_expected.to respond_with 200 }
     end
@@ -71,7 +71,7 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
         end
 
         it 'renders the json representation for the article record just created' do
-          expect(json_response[:reference]).to eql new_valid_attributes[:reference]
+          expect(json_response[:article][:reference]).to eql new_valid_attributes[:reference]
         end
 
         it { expect(response.status).to eq 201}
@@ -109,7 +109,7 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
 
         it 'renders the json representation for the updated user' do
           article_response = json_response
-          expect(article_response[:reference]).to eql 'An expensive TV'
+          expect(article_response[:article][:reference]).to eql 'An expensive TV'
         end
 
         it { expect(response.status).to eq 200 }
