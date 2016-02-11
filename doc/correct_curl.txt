@@ -1,0 +1,23 @@
+curl localhost:3000/api/articles -H 'Authorization:pascal.carrie@gmail.com:HgGkVSUCRuQKq_BPg3V1'
+
+{"articles":[{"reference":"article 1","url":"http://localhost:3000/api/articles/1","brand":{"name":"brand 1","url":"http://localhost:3000/api/brands/1"}},{"reference":"article 2","url":"http://localhost:3000/api/articles/2","brand":{"name":"brand 2","url":"http://localhost:3000/api/brands/2"}},{"reference":"article 3","url":"http://localhost:3000/api/articles/3","brand":{"name":"brand 1","url":"http://localhost:3000/api/brands/1"}}]}
+
+
+curl localhost:3000/api/articles/1 -H 'Authorization:pascal.carrie@gmail.com:HgGkVSUCRuQKq_BPg3V1'
+
+{"article":{"reference":"article 1","url":"http://localhost:3000/api/articles/1","brand":{"name":"brand 1","url":"http://localhost:3000/api/brands/1"}}}
+
+
+curl -X POST localhost:3000/api/articles/ -d '{"reference":"article 3","brand_id":1}' --header "Content-Type:application/json" -H 'Authorization:pascal.carrie@gmail.com:HgGkVSUCRuQKq_BPg3V1'
+
+{"article":{"reference":"article 3","url":"http://localhost:3000/api/articles/3","brand":{"name":"brand 1","url":"http://localhost:3000/api/brands/1"}}}
+
+
+curl --request PATCH localhost:3000/api/articles/3 -d '{"id":3, "reference":"article 3 updated","brand_id":2}' --header "Content-Type:application/json" -H 'Authorization:pascal.carrie@gmail.com:HgGkVSUCRuQKq_BPg3V1'
+ 
+ {"article":{"reference":"article 3 updated","url":"http://localhost:3000/api/articles/3","brand":{"name":"brand 2","url":"http://localhost:3000/api/brands/2"}}}
+
+
+curl -X DELETE localhost:3000/api/articles/3 -H 'Authorization:pascal.carrie@gmail.com:HgGkVSUCRuQKq_BPg3V1'
+{nothing answered}
+

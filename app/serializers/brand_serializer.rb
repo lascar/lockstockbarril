@@ -1,4 +1,4 @@
-# app/serializers/brand_serializer.rb
+# brand_serializer serialize one brand
 class BrandSerializer < ActiveModel::Serializer
 
   attributes :name, :url

@@ -1,6 +1,5 @@
-# app/serializers/api/v1/stock_serializer.rb
+# stock_serializer serialize one stock
 class StockSerializer < ActiveModel::Serializer
-
   attributes :name, :capacity, :url
   has_one :address
   has_many :locations

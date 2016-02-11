@@ -10,7 +10,7 @@ The requirments are:
 
 * * can edit update delete
 
-* * * articles, brands, suppliers, stocks, locations, addresses
+* * * articles, brands, suppliers, supplies, supplies_in_stock, stocks, locations, addresses
 
 * articles
 
@@ -46,11 +46,17 @@ The requirments are:
 
 * * have price
 
-* * can have stocks
+* supply_in_stock
 
-* * * have quantity
+* * have article
 
-* * * can have location
+* * have stock
+
+* * have quantity
+
+* * have location
+
+* * have bought_price
 
 * stocks
 
@@ -60,15 +66,17 @@ The requirments are:
 
 * * have locations
 
+* * can have supply_in_stock
+
 * locations
 
 * * have name
 
 * * have stock
 
-* * can have supplies
+* * can have supplies_in_stock
 
-* * can have articles through supplies
+* * can have articles through supplies_in_stock
 
 * address
 
@@ -85,3 +93,7 @@ The requirments are:
 * * state
 
 * * country
+
+* * can have supplier
+
+* * can have stock

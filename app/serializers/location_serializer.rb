@@ -1,10 +1,6 @@
-# app/serializers/location_serializer.rb
+# location_serializer serialize one location
 class LocationSerializer < ActiveModel::Serializer
 
-  attributes :name, :url
-
-  def url 
-    api_address_url(object)
-  end  
+  attributes :name
 
 end

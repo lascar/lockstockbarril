@@ -1,4 +1,4 @@
-# app/serializers/session_serializer.rb
+# session_serializer serialize the session
 class SessionSerializer < ActiveModel::Serializer
 
   attributes :email, :token_type, :user_id, :access_token
