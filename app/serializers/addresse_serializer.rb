@@ -1,4 +1,4 @@
-# app/serializers/address_serializer.rb
+# address_serializer serialize one address
 class AddressSerializer < ActiveModel::Serializer
 
   attributes :id, :zipcode, :town, :state, :country, :url

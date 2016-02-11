@@ -7,17 +7,10 @@ module CRUD
     before_action :authenticate_with_token!, only: [:create, :update, :destroy]
     before_action :set_resource, only: [:show, :update, :destroy]
     before_action :set_resources, only: [:index, :destroy]
-    before_action :set_additional_resources, only: [:create, :update]
 
     def self.resource_name(resource_name)
       define_method :resource_name do
         resource_name
-      end
-    end
-
-    def self.additional_resources(resource)
-      define_method :additional_resources do
-        resource
       end
     end
 
@@ -50,6 +43,7 @@ module CRUD
 
   # PATCH/PUT /articles/1.json
   def update
+    # delete_nested_ressources_updated
     if @resource.update(permit_attributes)
       render json: @resource, status: 200
     else
@@ -64,16 +58,13 @@ module CRUD
   end
 
   private
-  def resources_path
-    self.send('api_' + resource_name.pluralize + '_path')
-  end
-
-  def resource_path(resource=nil)
-    self.send('api_' + resource_name + '_path', resource)
-  end
-
-  def edit_resource_path
-    self.send('edit_api_' + resource_name + '_path')
+  def delete_nested_ressources_updated
+    params[resource_name].keys.grep(/_attributes/).each do |nested_ressources_updated|
+      nested = nested_ressources_updated.gsub('_attributes', '')
+      if nested == 'address'
+        @resource.send(nested).destroy
+      end
+    end
   end
 
   def resource_as_param_key
@@ -84,7 +75,7 @@ module CRUD
     begin
       instance_variable_set('@resources', resource_name.classify.constantize.all)
     rescue ActiveRecord::RecordNotFound
-      false
+      head 404
     end
   end
 
@@ -96,13 +87,7 @@ module CRUD
     begin
       instance_variable_set('@resource', resource_name.classify.constantize.find(params[:id]))
     rescue ActiveRecord::RecordNotFound
-      false
-    end
-  end
-
-  def set_additional_resources
-    additional_resources.each do |resource|
-      instance_variable_set('@' + resource.pluralize, resource.classify.constantize.all)
+      head 404
     end
   end
 

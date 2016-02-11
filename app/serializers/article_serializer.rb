@@ -1,4 +1,4 @@
-# app/serializers/article_serializer.rb
+# article_serializer serialize one article
 class ArticleSerializer < ActiveModel::Serializer
 
   attributes :reference, :url

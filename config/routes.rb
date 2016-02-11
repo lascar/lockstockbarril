@@ -4,9 +4,13 @@ Rails.application.routes.draw do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true), defaults: { format: :json } do
       resources :articles
       resources :brands
-      resources :suppliers
+      resources :suppliers do
+        resources :addresses
+      end
       resources :supplies
-      resources :stocks
+      resources :stocks do
+        resources :addresses
+      end
       resources :locations
       resources :addresses
       resources :sessions, only: [:create, :destroy]
