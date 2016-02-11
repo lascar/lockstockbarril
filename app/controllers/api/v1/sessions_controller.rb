@@ -5,7 +5,6 @@ class Api::V1::SessionsController < ApplicationController
   # POST /v1/login
   def create
     params_session = params[:session]
-    byebug
     user_password, user_email = params_session[:password], params_session[:email]
     user = user_email.present? && User.find_by(email: user_email)
     if user.valid_password? user_password
