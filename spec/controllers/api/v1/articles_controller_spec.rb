@@ -135,12 +135,32 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
       end
     end
 
-    describe "DELETE #destroy" do
+    describe 'DELETE #destroy' do
       before(:each) do
         @article = create :article
         delete :destroy, id: @article.id
       end
       it { expect(response.status).to eq 204 }
+    end
+
+    describe 'get #index search' do
+      let!(:brand1) { create(:brand, name: 'brand 1') }
+      let!(:brand2) { create(:brand, name: 'test 2') }
+      let!(:article1) { create(:article, reference: 'test 1', brand: brand1) }
+      let!(:article2) { create(:article, reference: 'article 2', brand: brand2) }
+      let!(:article3) { create(:article, reference: 'article 3', brand: brand1) }
+      let!(:article4) { create(:article, reference: 'test 4', brand: brand1) }
+
+      it 'returns 4 records from the database' do
+        get :index, {search:{brand:'nD', reference:'Est'}}
+        articles_response = json_response
+        expect(articles_response[:articles].count).to eq 2
+        expect(
+          articles_response[:articles].select do
+            |a| a[:reference] == "test 1" ||  a[:reference] == "test 4"
+          end.count
+        ).to eq 2
+      end
     end
   end
 end

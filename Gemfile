@@ -5,6 +5,7 @@ ruby "2.2.3"
 gem 'rails', '4.2.5'
 gem 'rails-api', '~> 0.4.0'
 gem 'active_model_serializers', '~> 0.8.3' # NOTE: not the 0
+gem 'squeel', '~> 1.2.3'
 # auth
 gem 'devise'
 # Use sqlite3 as the database for Active Record

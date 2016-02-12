@@ -77,6 +77,23 @@ module CRUD
     rescue ActiveRecord::RecordNotFound
       head 404
     end
+    params[:search] && filter_resourses
+  end
+
+  def filter_resourses
+    queries = set_queries
+    queries.each do|query|
+      @resources = @resources.send(query.keys.first, query.values.first)
+    end
+  end
+
+  def set_queries
+    params[:search].keys.inject([]) do |queries, query|
+      if @resources.respond_to? ('filter_by_' + query).to_sym
+        queries.push({'filter_by_' + query => params[:search][query]})
+      end
+      queries
+    end
   end
 
   def set_resource_new(parameters=nil)
