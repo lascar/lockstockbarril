@@ -139,6 +139,7 @@ GEM
     orm_adapter (0.5.0)
     parser (2.2.3.0)
       ast (>= 1.1, < 3.0)
+    pg (0.18.4)
     poltergeist (1.8.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -177,6 +178,11 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.2)
       loofah (~> 2.0)
+    rails_12factor (0.0.3)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.5)
+    rails_stdout_logging (0.0.4)
     railties (4.2.5)
       actionpack (= 4.2.5)
       activesupport (= 4.2.5)
@@ -235,7 +241,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.3.11)
     squeel (1.2.3)
       activerecord (>= 3.0)
       activesupport (>= 3.0)
@@ -286,16 +291,17 @@ DEPENDENCIES
   factory_girl_rails
   faker
   guard-rspec
+  pg
   poltergeist
   rails (= 4.2.5)
   rails-api (~> 0.4.0)
+  rails_12factor
   reek
   rspec-rails
   sdoc (~> 0.4.0)
   shoulda-matchers (~> 3.1)
   spring
   spring-commands-rspec
-  sqlite3
   squeel (~> 1.2.3)
   thin
   web-console (~> 2.0)

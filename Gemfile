@@ -8,8 +8,9 @@ gem 'active_model_serializers', '~> 0.8.3' # NOTE: not the 0
 gem 'squeel', '~> 1.2.3'
 # auth
 gem 'devise'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
+gem 'pg'
+gem 'rails_12factor', group: :production
+
 gem 'thin', require: false
 
 group :doc do
