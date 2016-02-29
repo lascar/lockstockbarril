@@ -8,7 +8,7 @@ class SessionSerializer < ActiveModel::Serializer
   end
 
   def token_type
-    'Bearer'
+    'aaaa'
   end
 
 end
