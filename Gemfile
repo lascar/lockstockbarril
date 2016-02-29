@@ -12,8 +12,6 @@ gem 'devise'
 gem 'sqlite3'
 gem 'thin', require: false
 
-gem 'rack-cors', :require => 'rack/cors'
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', '~> 0.4.0', group: :doc, require: false
