@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202082446) do
+ActiveRecord::Schema.define(version: 20160229105642) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "addresses", force: :cascade do |t|
     t.string   "street",                 default: ""
@@ -27,17 +30,17 @@ ActiveRecord::Schema.define(version: 20160202082446) do
     t.datetime "updated_at",                                null: false
   end
 
-  add_index "addresses", ["addresseable_type", "addresseable_id"], name: "index_addresses_on_addresseable_type_and_addresseable_id"
+  add_index "addresses", ["addresseable_type", "addresseable_id"], name: "index_addresses_on_addresseable_type_and_addresseable_id", using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "reference",  default: ""
-    t.integer  "brand_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+    t.integer  "brand_id"
   end
 
-  add_index "articles", ["brand_id"], name: "index_articles_on_brand_id"
-  add_index "articles", ["reference", "brand_id"], name: "index_articles_on_reference_and_brand_id", unique: true
+  add_index "articles", ["brand_id"], name: "index_articles_on_brand_id", using: :btree
+  add_index "articles", ["reference", "brand_id"], name: "index_articles_on_reference_and_brand_id", unique: true, using: :btree
 
   create_table "brands", force: :cascade do |t|
     t.string   "name",       default: ""
@@ -45,7 +48,7 @@ ActiveRecord::Schema.define(version: 20160202082446) do
     t.datetime "updated_at",              null: false
   end
 
-  add_index "brands", ["name"], name: "index_brands_on_name", unique: true
+  add_index "brands", ["name"], name: "index_brands_on_name", unique: true, using: :btree
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
@@ -54,8 +57,8 @@ ActiveRecord::Schema.define(version: 20160202082446) do
     t.datetime "updated_at", null: false
   end
 
-  add_index "locations", ["name", "stock_id"], name: "index_locations_on_name_and_stock_id", unique: true
-  add_index "locations", ["stock_id"], name: "index_locations_on_stock_id"
+  add_index "locations", ["name", "stock_id"], name: "index_locations_on_name_and_stock_id", unique: true, using: :btree
+  add_index "locations", ["stock_id"], name: "index_locations_on_stock_id", using: :btree
 
   create_table "stocks", force: :cascade do |t|
     t.string   "name",                                default: ""
@@ -79,9 +82,9 @@ ActiveRecord::Schema.define(version: 20160202082446) do
     t.datetime "updated_at",                                          null: false
   end
 
-  add_index "supplies", ["article_id"], name: "index_supplies_on_article_id"
-  add_index "supplies", ["ref_supplier", "supplier_id"], name: "index_supplies_on_ref_supplier_and_supplier_id", unique: true
-  add_index "supplies", ["supplier_id"], name: "index_supplies_on_supplier_id"
+  add_index "supplies", ["article_id"], name: "index_supplies_on_article_id", using: :btree
+  add_index "supplies", ["ref_supplier", "supplier_id"], name: "index_supplies_on_ref_supplier_and_supplier_id", unique: true, using: :btree
+  add_index "supplies", ["supplier_id"], name: "index_supplies_on_supplier_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -101,9 +104,10 @@ ActiveRecord::Schema.define(version: 20160202082446) do
     t.datetime "updated_at",                          null: false
   end
 
-  add_index "users", ["access_token"], name: "index_users_on_access_token", unique: true
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["identifier"], name: "index_users_on_identifier", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["access_token"], name: "index_users_on_access_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["identifier"], name: "index_users_on_identifier", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "articles", "brands"
 end
