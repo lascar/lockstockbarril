@@ -7,6 +7,7 @@ module CRUD
     before_action :authenticate_with_token!, only: [:create, :update, :destroy]
     before_action :set_resource, only: [:show, :update, :destroy]
     before_action :set_resources, only: [:index, :destroy]
+    before_action :get_query, only: [:index]
 
     def self.resource_name(resource_name)
       define_method :resource_name do
@@ -23,6 +24,7 @@ module CRUD
 
   # GET /articles.json
   def index
+    filter_resources
     respond_with @resources
   end
 
@@ -58,6 +60,23 @@ module CRUD
   end
 
   private
+  def get_query
+    @query = params[:search] || {}
+  end
+
+  def filter_resources
+    return unless defined?(resource_querier) && @query.any?
+    @resources = resource_querier.new.filter(@resources, @query.symbolize_keys)
+  end
+
+  def resource_querier
+    begin
+      (resource_name.classify + "Query").constantize
+    rescue
+      nil
+    end
+  end
+
   def delete_nested_ressources_updated
     params[resource_name].keys.grep(/_attributes/).each do |nested_ressources_updated|
       nested = nested_ressources_updated.gsub('_attributes', '')
