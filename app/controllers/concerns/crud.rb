@@ -58,6 +58,25 @@ module CRUD
   end
 
   private
+  def filter_resources(queries)
+    return unless defined?(resource_querier)
+    queries.each do|query|
+      begin
+        @resources = resource_querier.instance.filter(@resources, queries.symbolize_keys)
+      rescue NoMethodError
+        @resources = { errors: { title: 'NoMethodError', code: 'NoMethodError', detail: 'NoMethodError', status: :unprocessable_entity } }
+      end
+    end
+  end
+
+  def resource_querier
+    begin
+      (resource_name.classify + "Query").constantize
+    rescue
+      nil
+    end
+  end
+
   def delete_nested_ressources_updated
     params[resource_name].keys.grep(/_attributes/).each do |nested_ressources_updated|
       nested = nested_ressources_updated.gsub('_attributes', '')
@@ -77,23 +96,8 @@ module CRUD
     rescue ActiveRecord::RecordNotFound
       head 404
     end
-    params[:search] && filter_resourses
-  end
-
-  def filter_resourses
-    queries = set_queries
-    queries.each do|query|
-      @resources = @resources.send(query.keys.first, query.values.first)
-    end
-  end
-
-  def set_queries
-    params[:search].keys.inject([]) do |queries, query|
-      if @resources.respond_to? ('filter_by_' + query).to_sym
-        queries.push({'filter_by_' + query => params[:search][query]})
-      end
-      queries
-    end
+    queries = params[:search]
+    queries && filter_resources(queries)
   end
 
   def set_resource_new(parameters=nil)

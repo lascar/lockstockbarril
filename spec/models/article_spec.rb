@@ -15,21 +15,21 @@ RSpec.describe Article, type: :model do
       }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    describe ".filter_by_reference" do
+    describe ".as_reference" do
       it "returns the products matching" do
-        expect(Article.filter_by_reference("TeSt").sort).to match_array([article1, article4])
+        expect(Article.as_reference("TeSt").sort).to match_array([article1, article4])
       end
     end
 
-    describe ".filter_by_brand" do
+    describe ".as_brand_name  " do
       it "returns the products matching" do
-        expect(Article.filter_by_brand("RAn").sort).to match_array([article1, article3, article4])
+        expect(Article.as_brand_name("RAn").sort).to match_array([article1, article3, article4])
       end
     end
 
-    describe ".filter_by_reference.filter_by_brand" do
+    describe ".as_reference.as_brand_name" do
       it "returns the products matching" do
-        expect(Article.filter_by_brand("RAn").filter_by_reference('Tic').sort).to match_array([article3])
+        expect(Article.as_brand_name("RAn").as_reference('Tic').sort).to match_array([article3])
       end
     end
   end

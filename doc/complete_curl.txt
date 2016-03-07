@@ -4,6 +4,11 @@ curl -X POST localhost:3000/api/sessions --ipv4 --data "session[email]=toto@gmai
 
 
 curl localhost:3000/api/articles -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -G   --data-urlencode search[reference]="article 2" http://localhost:3000/api/articles -H 'Authorization:toto@gmail.com:RzW48XynHSMuyyyL'
+curl -G   --data-urlencode search[by_brand]="brand 2" http://localhost:3000/api/articles -H 'Authorization:toto@gmail.com:RzW48XynHSMuyyyL'
+
+curl -H "Content-Type: text/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'  'localhost:3000/api/articles?format=json&search=\{"reference": "article 2"\}' 
+curl -g localhost:3000/api/articles?search[:reference]="article 2" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl localhost:3000/api/articles/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl -X POST localhost:3000/api/articles/ -d '{"reference":"article 3","brand_id":1}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl --request PATCH localhost:3000/api/articles/3 -d '{"id":3, "reference":"article 3 updated","brand_id":2}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'

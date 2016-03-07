@@ -6,11 +6,11 @@ class Article < ActiveRecord::Base
   has_many :supplies, dependent: :destroy
   accepts_nested_attributes_for :supplies, allow_destroy: true
 
-  def self.filter_by_reference(ref)
-     where{(lower(reference) =~ "%#{ref.downcase}%")}
+  def self.as_reference(reference)
+    Article.where("reference ilike ?", "%#{reference}%")
   end
 
-  def self.filter_by_brand(brand)
+  def self.as_brand_name(brand)
     brands = Brand.filter_by_name(brand)
     Article.where{brand_id.in(brands.select{id})}
   end

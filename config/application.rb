@@ -18,6 +18,7 @@ module Lockstockbarril
         g.helper = false
     end
     config.active_record.raise_in_transactional_callbacks = true
+    config.autoload_paths += [Rails.root.join('app', 'queries')]
 
   end
 end
