@@ -151,15 +151,26 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
       let!(:article3) { create(:article, reference: 'article 3', brand: brand1) }
       let!(:article4) { create(:article, reference: 'test 4', brand: brand1) }
 
-      it 'returns 4 records from the database' do
-        get :index, {search:{brand:'nD', reference:'Est'}}
+      it 'search by content of reference and brand name' do
+        get :index, {search:{as_brand_name:'nD', as_reference:'est'}}
         articles_response = json_response
         expect(articles_response[:articles].count).to eq 2
         expect(
           articles_response[:articles].select do
-            |a| a[:reference] == "test 1" ||  a[:reference] == "test 4"
+            |a| a[:reference] == 'test 1' ||  a[:reference] == 'test 4'
           end.count
         ).to eq 2
+      end
+
+      it 'seach by exact match reference' do
+        get :index, {search:{reference: 'article 2'}}
+        articles_response = json_response
+        expect(articles_response[:articles].count).to eq 1
+        expect(
+          articles_response[:articles].select do
+            |a| a[:reference] == 'article 2'
+          end.count
+        ).to eq 1
       end
     end
   end
