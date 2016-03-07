@@ -6,6 +6,7 @@ gem 'rails', '4.2.5'
 gem 'rails-api', '~> 0.4.0'
 gem 'active_model_serializers', '~> 0.8.3' # NOTE: not the 0
 gem 'squeel', '~> 1.2.3'
+gem 'kaminari', '~> 0.16.3'
 # auth
 gem 'devise'
 gem 'pg'

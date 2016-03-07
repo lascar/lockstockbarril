@@ -23,6 +23,7 @@ module CRUD
 
   # GET /articles.json
   def index
+    paginate_resources
     respond_with @resources
   end
 
@@ -58,6 +59,12 @@ module CRUD
   end
 
   private
+  def paginate_resources
+    page = params[:page] || 1
+    @resources = @resources.page(page)
+    @resources = @resources.per(params[:per_page]) if params[:per_page]
+  end
+
   def filter_resources(queries)
     return unless defined?(resource_querier)
     queries.each do|query|
