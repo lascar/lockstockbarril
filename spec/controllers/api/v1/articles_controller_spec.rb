@@ -173,5 +173,16 @@ RSpec.describe Api::V1::ArticlesController, type: :controller do
         ).to eq 1
       end
     end
+
+    describe 'pagination' do
+      it 'paginates' do
+        article1 = create(:article)
+        article2 = create(:article)
+ 
+        get :index, page: 2, per_page: 1
+
+        expect(assigns(:resources)).to eq([article2])
+      end
+    end
   end
 end
