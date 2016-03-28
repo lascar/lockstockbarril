@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229105642) do
+ActiveRecord::Schema.define(version: 20160328154850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,21 @@ ActiveRecord::Schema.define(version: 20160229105642) do
   add_index "supplies", ["ref_supplier", "supplier_id"], name: "index_supplies_on_ref_supplier_and_supplier_id", unique: true, using: :btree
   add_index "supplies", ["supplier_id"], name: "index_supplies_on_supplier_id", using: :btree
 
+  create_table "supplies_in_warehouse", force: :cascade do |t|
+    t.integer  "article_id",        null: false
+    t.integer  "supply_id"
+    t.integer  "location_id"
+    t.integer  "bought_price_unit"
+    t.integer  "quantity"
+    t.date     "bought_date"
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
+  end
+
+  add_index "supplies_in_warehouse", ["article_id"], name: "index_supplies_in_warehouse_on_article_id", using: :btree
+  add_index "supplies_in_warehouse", ["location_id"], name: "index_supplies_in_warehouse_on_location_id", using: :btree
+  add_index "supplies_in_warehouse", ["supply_id"], name: "index_supplies_in_warehouse_on_supply_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
@@ -113,4 +128,7 @@ ActiveRecord::Schema.define(version: 20160229105642) do
   add_foreign_key "locations", "warehouses"
   add_foreign_key "supplies", "articles"
   add_foreign_key "supplies", "suppliers"
+  add_foreign_key "supplies_in_warehouse", "articles"
+  add_foreign_key "supplies_in_warehouse", "locations"
+  add_foreign_key "supplies_in_warehouse", "supplies"
 end

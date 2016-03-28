@@ -26,3 +26,7 @@ Location.create!([
   {name: 'location 1', warehouse_id: 1},
   {name: 'location 2', warehouse_id: 2}
 ])
+SupplyInWarehouse.create!([
+  {article_id: Article.first.id, supply_id: Supply.first.id, location_id: Location.first.id, bought_price_unit: 10, quantity: 2, bought_date: Date.today - 3.months},
+  {article_id: Article.last.id, supply_id: Supply.last.id, location_id: Location.last.id, bought_price_unit: 20, quantity: 4, bought_date: Date.today - 2.months}
+])

@@ -4,6 +4,7 @@ class Article < ActiveRecord::Base
   belongs_to :brand
   has_many :suppliers, through: :supplies
   has_many :supplies, dependent: :destroy
+  has_many :supplies, dependent: :destroy
   accepts_nested_attributes_for :supplies, allow_destroy: true
 
   def self.as_reference(reference)
