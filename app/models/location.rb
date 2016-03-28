@@ -1,3 +1,3 @@
 class Location < ActiveRecord::Base
-  belongs_to :stock
+  belongs_to :warehouse
 end
