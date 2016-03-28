@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328140850) do
+ActiveRecord::Schema.define(version: 20160229105642) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -52,12 +52,13 @@ ActiveRecord::Schema.define(version: 20160328140850) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
+    t.integer  "warehouse_id"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
-    t.integer  "warehouse_id"
   end
 
-  add_index "locations", ["name", "warehouse_id"], name: "index_locations_on_name_and_warehouse_id", using: :btree
+  add_index "locations", ["name", "warehouse_id"], name: "index_locations_on_name_and_warehouse_id", unique: true, using: :btree
+  add_index "locations", ["warehouse_id"], name: "index_locations_on_warehouse_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "name"
@@ -101,7 +102,7 @@ ActiveRecord::Schema.define(version: 20160328140850) do
   add_index "users", ["identifier"], name: "index_users_on_identifier", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
-  create_table "warehouse", force: :cascade do |t|
+  create_table "warehouses", force: :cascade do |t|
     t.string   "name",                                default: ""
     t.decimal  "capacity",   precision: 10, scale: 1, default: 0.0
     t.datetime "created_at",                                        null: false
@@ -109,7 +110,7 @@ ActiveRecord::Schema.define(version: 20160328140850) do
   end
 
   add_foreign_key "articles", "brands"
-  add_foreign_key "locations", "warehouse"
+  add_foreign_key "locations", "warehouses"
   add_foreign_key "supplies", "articles"
   add_foreign_key "supplies", "suppliers"
 end
