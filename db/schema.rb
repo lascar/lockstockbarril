@@ -52,13 +52,12 @@ ActiveRecord::Schema.define(version: 20160328140850) do
 
   create_table "locations", force: :cascade do |t|
     t.string   "name"
-    t.integer  "stock_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.integer  "warehouse_id"
   end
 
-  add_index "locations", ["name", "stock_id"], name: "index_locations_on_name_and_stock_id", unique: true, using: :btree
-  add_index "locations", ["stock_id"], name: "index_locations_on_stock_id", using: :btree
+  add_index "locations", ["name", "warehouse_id"], name: "index_locations_on_name_and_warehouse_id", using: :btree
 
   create_table "suppliers", force: :cascade do |t|
     t.string   "name"
@@ -110,7 +109,7 @@ ActiveRecord::Schema.define(version: 20160328140850) do
   end
 
   add_foreign_key "articles", "brands"
-  add_foreign_key "locations", "warehouse", column: "stock_id"
+  add_foreign_key "locations", "warehouse"
   add_foreign_key "supplies", "articles"
   add_foreign_key "supplies", "suppliers"
 end
