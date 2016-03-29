@@ -8,6 +8,7 @@ Rails.application.routes.draw do
         resources :addresses
       end
       resources :supplies
+      resources :supplies_in_warehouse
       resources :warehouses do
         resources :addresses
       end

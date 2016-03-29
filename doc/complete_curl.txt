@@ -40,6 +40,12 @@ curl -X POST localhost:3000/api/supplies/ -d '{"supply": {"ref_supplier":"supply
 curl --request PATCH localhost:3000/api/supplies/3 -d '{"supply": {"id":3, "ref_supplier":"supply 3 updated","supplier_id":2, "article_id":1, "price":"20.30"}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl -X DELETE localhost:3000/api/supplies/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 
+curl localhost:3000/api/supplies_in_warehouse -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl localhost:3000/api/supplies_in_warehouse/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X POST localhost:3000/api/supplies_in_warehouse/ -d '{"supply_in_warehouse": {"bought_price_unit":11,"quantity":3,"bought_date":"2015-12-30", "article_id":1, "supplier_id":2,"location_id":1}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl --request PATCH localhost:3000/api/supplies_in_warehouse/3 -d '{"supply_in_warehouse": {"id":3, "bought_price_unit":11,"quantity":3, "bought_date":"2015-12-30", "supply_id":2, "article_id":1, "location_id":1}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X DELETE localhost:3000/api/supplies_in_warehouse/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+
 curl localhost:3000/api/locations -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl localhost:3000/api/locations/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl -X POST localhost:3000/api/locations/ -d '{"location": {"name":"location 3","stock_id":2}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
