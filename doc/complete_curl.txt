@@ -46,6 +46,14 @@ curl -X POST localhost:3000/api/supplies_in_warehouse/ -d '{"supply_in_warehouse
 curl --request PATCH localhost:3000/api/supplies_in_warehouse/3 -d '{"supply_in_warehouse": {"id":3, "bought_price_unit":11,"quantity":3, "bought_date":"2015-12-30", "supply_id":2, "article_id":1, "location_id":1}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl -X DELETE localhost:3000/api/supplies_in_warehouse/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 
+curl localhost:3000/api/warehouses -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl localhost:3000/api/warehouses/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X POST localhost:3000/api/warehouses  -d '{"name": "test warehouse", "address_attributes":{"street":"Canarby st", "street_number":"3", "additional_information":"", "zipcode":"W1F 7DA", "town":"London", "state":"London", "country":"Great Britain"}} --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl --request PATCH localhost:3000/api/warehouses/3 -d '{"warehouse": {"name": "test warehouse in london"}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X DELETE localhost:3000/api/warehouses/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X POST localhost:3000/api/warehouses/2/add_supply -d '{"supply": {"id": "1", "unit_price": "20", "quantity": "2", "date": "01/04/2016"}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X DELETE localhost:3000/api/warehouses/2/remove_supply/4  -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+
 curl localhost:3000/api/locations -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl localhost:3000/api/locations/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 curl -X POST localhost:3000/api/locations/ -d '{"location": {"name":"location 3","stock_id":2}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
