@@ -1,4 +1,4 @@
-# queries for articles
+# queries for articles must be defined in model Articles if it is not a 'where query'
 class ArticleQuery
   include Singleton
   QUERY_MAPPING = {
@@ -7,6 +7,7 @@ class ArticleQuery
     as_brand_name: :as_brand_name
   }
 
+  # we will extend it
   module Scopes
   end
 
@@ -18,7 +19,7 @@ class ArticleQuery
     articles
   end
 
-  def querify(articles = all_articles)
+  def querify(articles = Article.all)
     articles.extending(self.class::Scopes)
   end
 
@@ -32,9 +33,5 @@ class ArticleQuery
     else
       articles.send(method_map, value)
     end
-  end
-
-  def all_articles
-    Article.all
   end
 end

@@ -1,3 +1,4 @@
+# brand is the gender of article
 class Brand < ActiveRecord::Base
   validates_presence_of :name
 

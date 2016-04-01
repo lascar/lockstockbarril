@@ -1,3 +1,4 @@
+# Article is the gender of supply and supply_in_warehouse
 class Article < ActiveRecord::Base
   validates_presence_of :reference
   validates_uniqueness_of :reference, scope: :brand_id

@@ -19,4 +19,20 @@ require 'rails_helper'
 # that an instance is receiving a specific message.
 
 RSpec.describe Api::V1::WarehousesController, type: :controller do
+  describe 'when the user is authenticated' do
+    let(:warehouse) { create(:warehouse) }
+    let(:supply) { create(:supply, price: 10) }
+
+    it '#add_supply' do
+      post :add_supply, id: warehouse.id, supply: {id: supply.id, unit_price: 20, quantity: 2, date: Date.today - 2.months}
+
+      expect(warehouse.supplies_in_warehouse.count).to eq(1)
+      expect(warehouse.supplies_in_warehouse.first.bought_price_unit).to eq(20)
+      expect(warehouse.supplies_in_warehouse.first.bought_date).to eq(Date.today - 2.months)
+    end
+
+    it '#remove_supply' do
+      #
+    end
+  end
 end

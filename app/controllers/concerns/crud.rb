@@ -61,8 +61,9 @@ module CRUD
   private
   def paginate_resources
     page = params[:page] || 1
+    per_page = params[:per_page]
     @resources = @resources.page(page)
-    @resources = @resources.per(params[:per_page]) if params[:per_page]
+    @resources = @resources.per(per_page) if per_page
   end
 
   def filter_resources(queries)

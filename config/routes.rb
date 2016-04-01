@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
       resources :supplies
       resources :supplies_in_warehouse
+      match '/warehouses/:id/add_supply', to: 'warehouses#add_supply', via: :post
       resources :warehouses do
         resources :addresses
       end
