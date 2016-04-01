@@ -1,6 +1,8 @@
 == README
-!https://semaphoreci.com/api/v1/pascal/lockstockbarril/branches/master/badge.svg(Build Status)!:https://semaphoreci.com/pascal/lockstockbarril
 
+
+
+[Build Status](https://semaphoreci.com/api/v1/pascal/lockstockbarril/branches/master/badge.svg)
 
 
 This application manages stock
