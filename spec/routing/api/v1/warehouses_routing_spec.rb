@@ -38,4 +38,7 @@ describe Api::V1::WarehousesController, type: :routing do
     expect(post: '/api/warehouses/1/add_supply').to route_to(controller: 'api/v1/warehouses', action: 'add_supply', id: '1', format: :json)
   end
 
+  it 'routes to #remove_supply' do
+    expect(delete: '/api/warehouses/1/remove_supply/2').to route_to(controller: 'api/v1/warehouses', action: 'remove_supply', id: '1', supply_in_warehouse_id: '2', format: :json)
+  end
 end

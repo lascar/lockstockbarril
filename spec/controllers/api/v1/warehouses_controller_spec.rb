@@ -32,7 +32,11 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
     end
 
     it '#remove_supply' do
-      #
+      supply_in_warehouse = create(:supply_in_warehouse, warehouse: warehouse)
+
+      delete :remove_supply, id: warehouse.id, supply_in_warehouse_id: supply_in_warehouse.id
+
+      expect(warehouse.supplies_in_warehouse.count).to eq(0)
     end
   end
 end
