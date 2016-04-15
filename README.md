@@ -4,9 +4,6 @@
 [![Build Status](https://semaphoreci.com/api/v1/pascal/lockstockbarril/branches/master/badge.svg)](https://semaphoreci.com/pascal/lockstockbarril)
 
 
-The branch "toward 5" is the working branch for nowday
-
-
 This application manages stock
 
 The requirments are:
