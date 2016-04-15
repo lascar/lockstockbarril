@@ -125,11 +125,15 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.3)
       i18n (~> 0.5)
+    ffi (1.9.10)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
     i18n (0.7.0)
     ice_nine (0.11.2)
     json (1.8.3)
+    listen (3.0.6)
+      rb-fsevent (>= 0.9.3)
+      rb-inotify (>= 0.9.7)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.4)
@@ -189,6 +193,9 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rainbow (2.1.0)
     rake (11.1.2)
+    rb-fsevent (0.9.7)
+    rb-inotify (0.9.7)
+      ffi (>= 0.5.0)
     rdoc (4.2.2)
       json (~> 1.4)
     reek (4.0.1)
@@ -240,6 +247,7 @@ DEPENDENCIES
   database_cleaner
   factory_girl_rails
   faker
+  listen
   pg
   poltergeist
   rails (= 5.0.0.beta3)

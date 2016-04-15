@@ -22,6 +22,7 @@ end
 # gem 'capistrano-rails', group: :development
 
 group :development do
+  gem 'listen', require: false
   gem 'spring', require: false
   gem 'reek', require: false
   gem 'web-console', '~> 2.0'
