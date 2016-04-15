@@ -4,6 +4,7 @@ class CreateSuppliesInWarehouse < ActiveRecord::Migration
       t.references :article, index: true, foreign_key: true, null: false
       t.references :supply, index: true, foreign_key: true
       t.references :location, index: true, foreign_key: true
+      t.references :warehouse, index: true, foreign_key: true
       t.integer :bought_price_unit
       t.integer :quantity
       t.date :bought_date

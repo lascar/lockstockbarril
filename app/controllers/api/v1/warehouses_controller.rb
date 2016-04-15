@@ -6,15 +6,19 @@ class Api::V1::WarehousesController < ApplicationController
 
   def add_supply
       supply_in_warehouse = SupplyInWarehouse.create attributes_supply_in_warehouse
-      redirect_to controller: :supplies_in_warehouse, action: :show, id: supply_in_warehouse.id
+      if supply_in_warehouse.valid?
+        redirect_to controller: :supplies_in_warehouse, action: :show, id: supply_in_warehouse.id
+      else 
+        render json: supply_in_warehouse.errors.messages
+      end
   end
 
   def remove_supply
-    begin
-      supply_in_warehouse = SupplyInWarehouse.where(warehouse_id: params[:id], id: params[:supply_in_warehouse_id]).first
+    supply_in_warehouse = SupplyInWarehouse.where(warehouse_id: params[:id], id: params[:supply_in_warehouse_id]).first
+    if supply_in_warehouse
       supply_in_warehouse.destroy
       head 204
-    rescue ActiveRecord::RecordNotFound
+    else
       head 404
     end
   end
@@ -26,7 +30,11 @@ class Api::V1::WarehousesController < ApplicationController
 
   def attributes_supply_in_warehouse
     supply_params = attributes_for_supply_in_warehouse
-    supply = Supply.find supply_params[:id]
+    supply = Supply.find_by_id supply_params[:id]
+    supply && build_supply_in_warehouse(supply, supply_params)
+  end
+
+  def build_supply_in_warehouse(supply, supply_params)
     {
       article_id: supply[:article_id],
       supply_id: supply[:id],

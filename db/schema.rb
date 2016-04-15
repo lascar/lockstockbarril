@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 20160328154850) do
     t.string   "town",                   default: "Madrid"
     t.string   "state",                  default: "Madrid"
     t.string   "country",                default: "España"
-    t.integer  "addresseable_id"
     t.string   "addresseable_type"
+    t.integer  "addresseable_id"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
   end
@@ -34,9 +34,9 @@ ActiveRecord::Schema.define(version: 20160328154850) do
 
   create_table "articles", force: :cascade do |t|
     t.string   "reference",  default: ""
+    t.integer  "brand_id"
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
-    t.integer  "brand_id"
   end
 
   add_index "articles", ["brand_id"], name: "index_articles_on_brand_id", using: :btree
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(version: 20160328154850) do
     t.string   "ref_supplier",                          default: ""
     t.integer  "article_id"
     t.integer  "supplier_id"
-    t.decimal  "price",        precision: 15, scale: 2, default: 0.0
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.decimal  "price",        precision: 15, scale: 2, default: "0.0"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
   add_index "supplies", ["article_id"], name: "index_supplies_on_article_id", using: :btree
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 20160328154850) do
     t.integer  "article_id",        null: false
     t.integer  "supply_id"
     t.integer  "location_id"
+    t.integer  "warehouse_id"
     t.integer  "bought_price_unit"
     t.integer  "quantity"
     t.date     "bought_date"
@@ -93,35 +94,22 @@ ActiveRecord::Schema.define(version: 20160328154850) do
   add_index "supplies_in_warehouse", ["article_id"], name: "index_supplies_in_warehouse_on_article_id", using: :btree
   add_index "supplies_in_warehouse", ["location_id"], name: "index_supplies_in_warehouse_on_location_id", using: :btree
   add_index "supplies_in_warehouse", ["supply_id"], name: "index_supplies_in_warehouse_on_supply_id", using: :btree
+  add_index "supplies_in_warehouse", ["warehouse_id"], name: "index_supplies_in_warehouse_on_warehouse_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
-    t.integer  "identifier"
-    t.string   "name",                   default: ""
-    t.string   "access_token",           default: ""
-    t.string   "reset_password_token"
-    t.datetime "reset_password_sent_at"
-    t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
-    t.datetime "current_sign_in_at"
-    t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip"
-    t.string   "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.string   "email",                   null: false
+    t.string   "name",       default: ""
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
-  add_index "users", ["access_token"], name: "index_users_on_access_token", unique: true, using: :btree
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["identifier"], name: "index_users_on_identifier", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "warehouses", force: :cascade do |t|
     t.string   "name",                                default: ""
-    t.decimal  "capacity",   precision: 10, scale: 1, default: 0.0
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.decimal  "capacity",   precision: 10, scale: 1, default: "0.0"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
   end
 
   add_foreign_key "articles", "brands"
@@ -131,4 +119,5 @@ ActiveRecord::Schema.define(version: 20160328154850) do
   add_foreign_key "supplies_in_warehouse", "articles"
   add_foreign_key "supplies_in_warehouse", "locations"
   add_foreign_key "supplies_in_warehouse", "supplies"
+  add_foreign_key "supplies_in_warehouse", "warehouses"
 end

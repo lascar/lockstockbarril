@@ -1,7 +1,6 @@
 User.create!([
-  {email: "toto@gmail.com", password: "toto1000", password_confirmation: "toto1000", name: "toto"}
+  {email: "toto@gmail.com", name: "toto"}
 ])
-User.last.update_attributes(access_token: 'toto@gmail.com:RzW48XEcs2ynHSMuyyyL')
 Brand.create!([
   {name: "brand 1"},
   {name: "brand 2"},
@@ -27,6 +26,6 @@ Location.create!([
   {name: 'location 2', warehouse_id: 2}
 ])
 SupplyInWarehouse.create!([
-  {article_id: Article.first.id, supply_id: Supply.first.id, location_id: Location.first.id, bought_price_unit: 10, quantity: 2, bought_date: Date.today - 3.months},
-  {article_id: Article.last.id, supply_id: Supply.last.id, location_id: Location.last.id, bought_price_unit: 20, quantity: 4, bought_date: Date.today - 2.months}
+  {article_id: Article.first.id, supply_id: Supply.first.id, warehouse_id: 1, location_id: Location.first.id, bought_price_unit: 10, quantity: 2, bought_date: Date.today - 3.months},
+  {article_id: Article.last.id, supply_id: Supply.last.id, warehouse_id: 2, location_id: Location.last.id, bought_price_unit: 20, quantity: 4, bought_date: Date.today - 2.months}
 ])

@@ -1,61 +1,84 @@
-curl -X POST localhost:3000/api/sessions --ipv4 --data "session[email]=toto@gmail.com&session[password]=toto1000"
+curl localhost:3000/api/articles
 
-{"user":{"id":1,"email":"toto@gmail.com","created_at":"2016-02-09T17:01:34.138Z","updated_at":"2016-02-11T11:08:57.649Z","access_token":"toto@gmail.com:RzW48XEcs2ynHSMuyyyL"}}
+curl localhost:3000/api/articles/1
+
+curl -G   --data-urlencode search[reference]="article 2" http://localhost:3000/api/articles
+
+curl -G   --data-urlencode search[by_brand]="brand 2" http://localhost:3000/api/articles
+
+curl -X POST localhost:3000/api/articles -d '{"reference":"article 3","brand_id":1}' --header "Content-Type:application/json"
+
+curl --request PATCH localhost:3000/api/articles/3 -d '{"id":3, "reference":"article 3 updated","brand_id":2}' --header "Content-Type:application/json"
+
+curl -X DELETE localhost:3000/api/articles/3
 
 
-curl localhost:3000/api/articles -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -G   --data-urlencode search[reference]="article 2" http://localhost:3000/api/articles -H 'Authorization:toto@gmail.com:RzW48XynHSMuyyyL'
-curl -G   --data-urlencode search[by_brand]="brand 2" http://localhost:3000/api/articles -H 'Authorization:toto@gmail.com:RzW48XynHSMuyyyL'
+curl localhost:3000/api/brands
 
-curl -H "Content-Type: text/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'  'localhost:3000/api/articles?format=json&search=\{"reference": "article 2"\}' 
-curl -g localhost:3000/api/articles?search[:reference]="article 2" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/articles/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/articles/ -d '{"reference":"article 3","brand_id":1}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl --request PATCH localhost:3000/api/articles/3 -d '{"id":3, "reference":"article 3 updated","brand_id":2}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/articles/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl localhost:3000/api/brands/1
 
-curl localhost:3000/api/brands -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/brands/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/brands/ -d '{"name":"brand 3"}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl --request PATCH localhost:3000/api/brands/3 -d '{"id":3, "name":"brand 3 updated"}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/brands/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X POST localhost:3000/api/brands -d '{"name":"brand 3"}' --header "Content-Type:application/json"
 
-curl localhost:3000/api/suppliers -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/suppliers/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -i -X POST localhost:3000/api/suppliers/ -d '{"supplier":{"name":"supplier 3", "address_attributes":{"street":"Neuhauser Strasse", "street_number":"3", "additional_information":"", "zipcode":"81929", "town":"Múnich", "state":"Baviera", "country":"Alemanía"}, "article_ids": [1]}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-# be carrefull! if address has no id, a new one is created and the old one stay alone
-curl --request PATCH localhost:3000/api/suppliers/3 -d '{"id":3, "supplier":{"name":"supplier 3 updated", "address_attributes":{"id": 6",street":"Neuhauser Strasse", "street_number":"66", "additional_information":"", "zipcode":"81929", "town":"Múnich", "state":"Baviera", "country":"Alemanía"}, "article_ids": [2]}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/suppliers/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl --request PATCH localhost:3000/api/brands/3 -d '{"id":3, "name":"brand 3 updated"}' --header "Content-Type:application/json"
 
-curl localhost:3000/api/stocks -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/stocks/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/stocks/ -d '{"stock":{"name":"stock 3", "address_attributes":{"street":"Neuhauser Strasse","street_number":"3", "additional_information":"", "zipcode":"81929", "town":"Múnich", "state":"Baviera", "country":"Alemanía"}}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-# be carrefull! if address has no id, a new one is created and the old one stay alone
-curl --request PATCH localhost:3000/api/stocks/3 -d '{"stock":{"name":"stock 3 updated", "address_attributes":{"id":7, "street":"Neuhauser Strasse","street_number":"5", "additional_information":"", "zipcode":"81929", "town":"Múnich", "state":"Baviera", "country":"Alemanía"}}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/stocks/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -X DELETE localhost:3000/api/brands/3
 
-curl localhost:3000/api/supplies -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/supplies/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/supplies/ -d '{"supply": {"ref_supplier":"supply 3","supplier_id":1, "article_id":1, "price":"30.20"}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl --request PATCH localhost:3000/api/supplies/3 -d '{"supply": {"id":3, "ref_supplier":"supply 3 updated","supplier_id":2, "article_id":1, "price":"20.30"}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/supplies/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
 
-curl localhost:3000/api/supplies_in_warehouse -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/supplies_in_warehouse/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/supplies_in_warehouse/ -d '{"supply_in_warehouse": {"bought_price_unit":11,"quantity":3,"bought_date":"2015-12-30", "article_id":1, "supplier_id":2,"location_id":1}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl --request PATCH localhost:3000/api/supplies_in_warehouse/3 -d '{"supply_in_warehouse": {"id":3, "bought_price_unit":11,"quantity":3, "bought_date":"2015-12-30", "supply_id":2, "article_id":1, "location_id":1}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/supplies_in_warehouse/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl localhost:3000/api/suppliers
 
-curl localhost:3000/api/warehouses -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/warehouses/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/warehouses  -d '{"name": "test warehouse", "address_attributes":{"street":"Canarby st", "street_number":"3", "additional_information":"", "zipcode":"W1F 7DA", "town":"London", "state":"London", "country":"Great Britain"}} --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl --request PATCH localhost:3000/api/warehouses/3 -d '{"warehouse": {"name": "test warehouse in london"}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/warehouses/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/warehouses/2/add_supply -d '{"supply": {"id": "1", "unit_price": "20", "quantity": "2", "date": "01/04/2016"}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/warehouses/2/remove_supply/4  -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl localhost:3000/api/suppliers/1
 
-curl localhost:3000/api/locations -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl localhost:3000/api/locations/1 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X POST localhost:3000/api/locations/ -d '{"location": {"name":"location 3","stock_id":2}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl ---request PATCH localhost:3000/api/locations/3 -d '{"location": {"name":"location 3 updated","stock_id":1}}' --header "Content-Type:application/json" -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
-curl -X DELETE localhost:3000/api/locations/3 -H 'Authorization:toto@gmail.com:RzW48XEcs2ynHSMuyyyL'
+curl -i -X POST localhost:3000/api/suppliers -d '{"supplier":{"name":"supplier 3", "address_attributes":{"street":"Neuhauser Strasse", "street_number":"3", "additional_information":"", "zipcode":"81929", "town":"Múnich", "state":"Baviera", "country":"Alemanía"}, "article_ids": [1]}}' --header "Content-Type:application/json"
+
+curl --request PATCH localhost:3000/api/suppliers/3 -d '{"supplier":{"name":"supplier 3 updated", "address_attributes":{"street":"Neuhauser Strasse", "street_number":"66", "additional_information":"", "zipcode":"81929", "town":"Múnich", "state":"Baviera", "country":"Alemanía"}, "article_ids": [2]}}' --header "Content-Type:application/json"
+
+curl -X DELETE localhost:3000/api/suppliers/3
+
+
+curl localhost:3000/api/supplies
+
+curl localhost:3000/api/supplies/1
+
+curl -X POST localhost:3000/api/supplies/ -d '{"supply": {"ref_supplier":"supply 3","supplier_id":1, "article_id":1, "price":"30.20"}}' --header "Content-Type:application/json"
+
+curl --request PATCH localhost:3000/api/supplies/3 -d '{"supply": {"id":3, "ref_supplier":"supply 3 updated","supplier_id":2, "article_id":1, "price":"20.30"}}' --header "Content-Type:application/json"
+
+curl -X DELETE localhost:3000/api/supplies/3
+
+
+curl localhost:3000/api/supplies_in_warehouse
+
+curl localhost:3000/api/supplies_in_warehouse/1
+
+curl -X POST localhost:3000/api/supplies_in_warehouse/ -d '{"supply_in_warehouse": {"bought_price_unit":11,"quantity":3,"bought_date":"2015-12-30", "warehouse_id":1, "article_id":1, "supply_id":1,"location_id":1}}' --header "Content-Type:application/json"
+
+curl --request PATCH localhost:3000/api/supplies_in_warehouse/3 -d '{"supply_in_warehouse": {"id":3, "bought_price_unit":11,"quantity":3, "bought_date":"2015-12-30", "supply_id":2, "article_id":1, "location_id":1}}' --header "Content-Type:application/json"
+
+curl -X DELETE localhost:3000/api/supplies_in_warehouse/3
+
+
+curl localhost:3000/api/warehouses
+
+curl localhost:3000/api/warehouses/1
+
+curl -X POST localhost:3000/api/warehouses  -d '{"name": "test warehouse", "address_attributes":{"street":"Canarby st", "street_number":"3", "additional_information":"", "zipcode":"W1F 7DA", "town":"London", "state":"London", "country":"Great Britain"}}' --header "Content-Type:application/json"
+
+curl --request PATCH localhost:3000/api/warehouses/3 -d '{"warehouse": {"name": "test warehouse in london"}}' --header "Content-Type:application/json"
+
+curl -X DELETE localhost:3000/api/warehouses/3
+
+curl -X POST localhost:3000/api/warehouses/2/add_supply -d '{"supply": {"id": "1", "unit_price": "20", "quantity": "2", "date": "01/04/2016"}}' --header "Content-Type:application/json"
+
+curl -X DELETE localhost:3000/api/warehouses/2/remove_supply/4 
+
+
+curl localhost:3000/api/locations
+
+curl localhost:3000/api/locations/1
+
+curl -X POST localhost:3000/api/locations/ -d '{"location": {"name":"location 3","warehouse_id":2}}' --header "Content-Type:application/json"
+
+curl --request PATCH localhost:3000/api/locations/3 -d '{"location": {"name":"location 3 updated","warehouse_id":1}}' --header "Content-Type:application/json"
+
+curl -X DELETE localhost:3000/api/locations/3
+

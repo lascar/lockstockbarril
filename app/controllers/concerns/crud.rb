@@ -3,10 +3,8 @@ module CRUD
   extend ActiveSupport::Concern
 
   included do
-    respond_to :json
-    before_action :authenticate_with_token!, only: [:create, :update, :destroy]
     before_action :set_resource, only: [:show, :update, :destroy]
-    before_action :set_resources, only: [:index, :destroy]
+    before_action :set_resources, only: [:index]
 
     def self.resource_name(resource_name)
       define_method :resource_name do
@@ -23,13 +21,12 @@ module CRUD
 
   # GET /articles.json
   def index
-    paginate_resources
-    respond_with @resources
+    render json: @resources
   end
 
   # GET /articles/1.json
   def show
-    respond_with @resource
+    render json: @resource
   end
 
   # POST /articles.json
@@ -44,7 +41,6 @@ module CRUD
 
   # PATCH/PUT /articles/1.json
   def update
-    # delete_nested_ressources_updated
     if @resource.update(permit_attributes)
       render json: @resource, status: 200
     else
@@ -59,18 +55,12 @@ module CRUD
   end
 
   private
-  def paginate_resources
-    page = params[:page] || 1
-    per_page = params[:per_page]
-    @resources = @resources.page(page)
-    @resources = @resources.per(per_page) if per_page
-  end
 
   def filter_resources(queries)
     return unless defined?(resource_querier)
     queries.each do|query|
       begin
-        @resources = resource_querier.instance.filter(@resources, queries.symbolize_keys)
+        @resources = resource_querier.instance.filter(@resources, queries)
       rescue NoMethodError
         @resources = { errors: { title: 'NoMethodError', code: 'NoMethodError', detail: 'NoMethodError', status: :unprocessable_entity } }
       end
@@ -85,15 +75,6 @@ module CRUD
     end
   end
 
-  def delete_nested_ressources_updated
-    params[resource_name].keys.grep(/_attributes/).each do |nested_ressources_updated|
-      nested = nested_ressources_updated.gsub('_attributes', '')
-      if nested == 'address'
-        @resource.send(nested).destroy
-      end
-    end
-  end
-
   def resource_as_param_key
     resource_name.to_sym
   end
@@ -104,7 +85,8 @@ module CRUD
     rescue ActiveRecord::RecordNotFound
       head 404
     end
-    queries = params[:search]
+    # TODO unsafe!
+    queries = params.to_unsafe_hash()[:search]
     queries && filter_resources(queries)
   end
 

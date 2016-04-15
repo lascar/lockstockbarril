@@ -1,10 +1,8 @@
 # users_controller no index
 class Api::V1::UsersController < ApplicationController
-  before_action :authenticate_with_token!
-  respond_to :json
 
   def show
-    respond_with User.find(params[:id])
+    render json: User.find(params[:id])
   end
 
   def create
@@ -17,8 +15,8 @@ class Api::V1::UsersController < ApplicationController
   end
 
   def update
-    user = current_user
-    if user.update(user_params)
+    user = User.find params[:id]
+    if user && user.update(user_params)
       render json: user, status: 200, location: [:api, user]
     else
       render json: { errors: user.errors }, status: 422
@@ -32,6 +30,6 @@ class Api::V1::UsersController < ApplicationController
   end
   private
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation)
+    params.require(:user).permit(:email, :name)
   end
 end
