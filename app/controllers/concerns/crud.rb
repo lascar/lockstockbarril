@@ -60,7 +60,7 @@ module CRUD
     return unless defined?(resource_querier)
     queries.each do|query|
       begin
-        @resources = resource_querier.instance.filter(@resources, queries.symbolize_keys)
+        @resources = resource_querier.instance.filter(@resources, queries)
       rescue NoMethodError
         @resources = { errors: { title: 'NoMethodError', code: 'NoMethodError', detail: 'NoMethodError', status: :unprocessable_entity } }
       end
@@ -85,7 +85,8 @@ module CRUD
     rescue ActiveRecord::RecordNotFound
       head 404
     end
-    queries = params[:search]
+    # TODO unsafe!
+    queries = params.to_unsafe_hash()[:search]
     queries && filter_resources(queries)
   end
 

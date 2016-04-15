@@ -4,7 +4,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "GET #show" do
     before(:each) do
       @user = create :user
-      get :show, id: @user.id
+      get :show, params: { id: @user.id }
     end
 
     it "returns the information about a reporter on a hash" do
@@ -20,7 +20,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       before(:each) do
         @user = create :user
         @user_attributes = attributes_for :user
-        post :create, { user: @user_attributes }
+        post :create, params: { user: @user_attributes }
       end
       
       it "renders the json representation for the user record just created" do
@@ -36,7 +36,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         #notice I'm not including the email
         @user = create :user
         @invalid_user_attributes = { email: '' }
-        post :create, { user: @invalid_user_attributes }
+        post :create, params: { user: @invalid_user_attributes }
       end
 
       it "renders an errors json" do
@@ -57,7 +57,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "when is successfully updated" do
       before(:each) do
         @user = create :user
-        patch :update, { id: @user.id,
+        patch :update, params: { id: @user.id,
                          user: { email: "newmail@example.com" } }
       end
       it "renders the json representation for the updated user" do
@@ -70,7 +70,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       before(:each) do
         @user = create :user
         bad_attributes = attributes_for :user_invalid_request
-        patch :update, id: @user.id, user: bad_attributes
+        patch :update, params: { id: @user.id, user: bad_attributes }
       end
       it "renders an errors json" do
         user_response = json_response
@@ -86,7 +86,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "DELETE #destroy" do
     before(:each) do
       @user = create :user
-      delete :destroy, { id: @user.id }
+      delete :destroy, params: { id: @user.id }
     end
     it { is_expected.to respond_with 204 }
   end

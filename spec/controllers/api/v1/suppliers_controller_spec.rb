@@ -8,13 +8,13 @@ RSpec.describe Api::V1::SuppliersController, type: :controller do
     let(:address) { create(:address) }
 
     it 'creates with this address' do
-      post :create, supplier: supplier_attributes.merge(address_attributes: address_attributes)
+      post :create, params: { supplier: supplier_attributes.merge(address_attributes: address_attributes) }
 
       expect(Supplier.last.address.street).to eq(address_attributes[:street])
     end
 
     it 'can modifies the address' do
-      patch :update, { id: supplier.id,
+      patch :update, params: { id: supplier.id,
                        supplier: {address_attributes: { street: 'calle Alcala' } } }
       supplier.reload
 

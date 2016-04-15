@@ -24,8 +24,8 @@ ActiveRecord::Schema.define(version: 20160328154850) do
     t.string   "town",                   default: "Madrid"
     t.string   "state",                  default: "Madrid"
     t.string   "country",                default: "España"
-    t.integer  "addresseable_id"
     t.string   "addresseable_type"
+    t.integer  "addresseable_id"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
   end
@@ -70,9 +70,9 @@ ActiveRecord::Schema.define(version: 20160328154850) do
     t.string   "ref_supplier",                          default: ""
     t.integer  "article_id"
     t.integer  "supplier_id"
-    t.decimal  "price",        precision: 15, scale: 2, default: 0.0
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.decimal  "price",        precision: 15, scale: 2, default: "0.0"
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
   add_index "supplies", ["article_id"], name: "index_supplies_on_article_id", using: :btree
@@ -107,9 +107,9 @@ ActiveRecord::Schema.define(version: 20160328154850) do
 
   create_table "warehouses", force: :cascade do |t|
     t.string   "name",                                default: ""
-    t.decimal  "capacity",   precision: 10, scale: 1, default: 0.0
-    t.datetime "created_at",                                        null: false
-    t.datetime "updated_at",                                        null: false
+    t.decimal  "capacity",   precision: 10, scale: 1, default: "0.0"
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
   end
 
   add_foreign_key "articles", "brands"

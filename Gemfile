@@ -2,8 +2,7 @@ source 'https://rubygems.org'
 ruby "2.2.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.5'
-gem 'rails-api', '~> 0.4.0'
+gem 'rails', '5.0.0.beta3'
 gem 'active_model_serializers', '~> 0.8.3' # NOTE: not the 0
 gem 'pg'
 gem 'rails_12factor', group: :production
@@ -29,11 +28,12 @@ group :development do
 end
 
 group :development, :test do
-  gem 'rspec-rails', require: false
+  %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
+        gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
+  end
   gem "spring-commands-rspec", :require => false
 
   gem 'factory_girl_rails', require: false
-  gem 'guard-rspec', require: false
   gem 'byebug'
   gem 'faker'
 end

@@ -5,7 +5,7 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
   let(:supply) { create(:supply, price: 10) }
 
   it '#add_supply' do
-    post :add_supply, id: warehouse.id, supply: {id: supply.id, unit_price: 20, quantity: 2, date: Date.today - 2.months}
+    post :add_supply, params: { id: warehouse.id, supply: {id: supply.id, unit_price: 20, quantity: 2, date: Date.today - 2.months} }
 
     expect(warehouse.supplies_in_warehouse.count).to eq(1)
     expect(warehouse.supplies_in_warehouse.first.bought_price_unit).to eq(20)
@@ -14,7 +14,7 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
 
   describe 'with a no existante warehouse' do
     it 'failed to add supply' do
-      post :add_supply, id: warehouse.id + 1, supply: {id: supply.id, unit_price: 20, quantity: 2, date: Date.today - 2.months}
+      post :add_supply, params: { id: warehouse.id + 1, supply: {id: supply.id, unit_price: 20, quantity: 2, date: Date.today - 2.months} }
       supply_in_warehouse_response = json_response
       expect(supply_in_warehouse_response[:warehouse]).to include("must refere to existing object!")
     end
@@ -22,7 +22,7 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
 
   describe 'with a no existante supply' do
     it 'failed to add supply' do
-      post :add_supply, id: warehouse, supply: {id: supply.id + 1, unit_price: 20, quantity: 2, date: Date.today - 2.months}
+      post :add_supply, params: { id: warehouse, supply: {id: supply.id + 1, unit_price: 20, quantity: 2, date: Date.today - 2.months} }
       supply_in_warehouse_response = json_response
       expect(supply_in_warehouse_response[:supply]).to include("must refere to existing object!")
     end
@@ -32,7 +32,7 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
     it '#remove_supply' do
       supply_in_warehouse = create(:supply_in_warehouse, warehouse: warehouse)
 
-      delete :remove_supply, id: warehouse.id + 1, supply_in_warehouse_id: supply_in_warehouse.id
+      delete :remove_supply, params: { id: warehouse.id + 1, supply_in_warehouse_id: supply_in_warehouse.id }
 
       expect(response.status).to eq(404)
       expect(warehouse.supplies_in_warehouse.count).to eq(1)
@@ -43,7 +43,7 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
     it '#remove_supply' do
       supply_in_warehouse = create(:supply_in_warehouse, warehouse: warehouse)
 
-      delete :remove_supply, id: warehouse.id, supply_in_warehouse_id: supply_in_warehouse.id + 1
+      delete :remove_supply, params: { id: warehouse.id, supply_in_warehouse_id: supply_in_warehouse.id + 1 }
 
       expect(response.status).to eq(404)
       expect(warehouse.supplies_in_warehouse.count).to eq(1)
@@ -54,7 +54,7 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
     it '#remove_supply' do
       supply_in_warehouse = create(:supply_in_warehouse, warehouse: warehouse)
 
-      delete :remove_supply, id: warehouse.id, supply_in_warehouse_id: supply_in_warehouse.id
+      delete :remove_supply, params: { id: warehouse.id, supply_in_warehouse_id: supply_in_warehouse.id }
 
       expect(response.status).to eq(204)
       expect(warehouse.supplies_in_warehouse.count).to eq(0)
@@ -68,13 +68,13 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
     let(:address) { create(:address) }
 
     it 'creates with this address' do
-      post :create, warehouse: warehouse_attributes.merge(address_attributes: address_attributes)
+      post :create, params: { warehouse: warehouse_attributes.merge(address_attributes: address_attributes) }
 
       expect(Warehouse.last.address.street).to eq(address_attributes[:street])
     end
 
     it 'can modifies the address' do
-      patch :update, { id: warehouse.id,
+      patch :update, params: { id: warehouse.id,
                        warehouse: {address_attributes: { street: 'calle Alcala' } } }
       warehouse.reload
 
