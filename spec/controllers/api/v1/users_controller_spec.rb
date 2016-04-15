@@ -4,7 +4,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "GET #show" do
     before(:each) do
       @user = create :user
-      api_authorization_header @user.access_token
       get :show, id: @user.id
     end
 
@@ -20,7 +19,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "when is successfully created" do
       before(:each) do
         @user = create :user
-        api_authorization_header @user.access_token
         @user_attributes = attributes_for :user
         post :create, { user: @user_attributes }
       end
@@ -37,9 +35,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       before(:each) do
         #notice I'm not including the email
         @user = create :user
-        api_authorization_header @user.access_token
-        @invalid_user_attributes = { password: "12345678",
-        password_confirmation: "12345678" }
+        @invalid_user_attributes = { email: '' }
         post :create, { user: @invalid_user_attributes }
       end
 
@@ -61,7 +57,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "when is successfully updated" do
       before(:each) do
         @user = create :user
-        api_authorization_header @user.access_token
         patch :update, { id: @user.id,
                          user: { email: "newmail@example.com" } }
       end
@@ -74,9 +69,8 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     context "when is not created" do
       before(:each) do
         @user = create :user
-        api_authorization_header @user.access_token
-        patch :update, { id: @user.id,
-                         user: { email: "bademail.com" } }
+        bad_attributes = attributes_for :user_invalid_request
+        patch :update, id: @user.id, user: bad_attributes
       end
       it "renders an errors json" do
         user_response = json_response
@@ -84,7 +78,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       end
       it "renders the json errors on whye the user could not be created" do
         user_response = json_response
-        expect(user_response[:errors][:email]).to include "is invalid"
+        expect(user_response[:errors][:email]).to include "can't be blank"
       end
       it { is_expected.to respond_with 422 }
     end
@@ -92,7 +86,6 @@ RSpec.describe Api::V1::UsersController, type: :controller do
   describe "DELETE #destroy" do
     before(:each) do
       @user = create :user
-      api_authorization_header @user.access_token
       delete :destroy, { id: @user.id }
     end
     it { is_expected.to respond_with 204 }

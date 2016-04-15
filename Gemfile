@@ -5,14 +5,9 @@ ruby "2.2.3"
 gem 'rails', '4.2.5'
 gem 'rails-api', '~> 0.4.0'
 gem 'active_model_serializers', '~> 0.8.3' # NOTE: not the 0
-gem 'squeel', '~> 1.2.3'
-gem 'kaminari', '~> 0.16.3'
-# auth
-gem 'devise'
 gem 'pg'
 gem 'rails_12factor', group: :production
 
-gem 'thin', require: false
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

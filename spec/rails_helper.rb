@@ -32,17 +32,10 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   config.include Request::JsonHelpers, type: :controller
-  config.include Request::HeadersHelpers, type: :controller
   config.before(:each, type: :controller) do
-    include_default_accept_headers
   end
   
-  include Warden::Test::Helpers
-  Warden.test_mode!
 
-  config.after do
-    Warden.test_reset!
-  end
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/factories"
 
@@ -73,8 +66,6 @@ RSpec.configure do |config|
 
   DatabaseCleaner.strategy = :transaction
   config.include FactoryGirl::Syntax::Methods
-  config.include Devise::TestHelpers, type: :controller
-  config.include Warden::Test::Helpers
 end
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|

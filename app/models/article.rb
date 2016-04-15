@@ -9,11 +9,11 @@ class Article < ActiveRecord::Base
   accepts_nested_attributes_for :supplies, allow_destroy: true
 
   def self.as_reference(reference)
-    Article.where("reference ilike ?", "%#{reference}%")
+    where('reference ILIKE ?', "%#{reference}%")
   end
 
   def self.as_brand_name(brand)
     brands = Brand.filter_by_name(brand)
-    Article.where{brand_id.in(brands.select{id})}
+    where(brand_id: brands.ids)
   end
 end
