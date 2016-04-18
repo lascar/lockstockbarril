@@ -4,6 +4,12 @@
 [![Build Status](https://semaphoreci.com/api/v1/pascal/lockstockbarril/branches/master/badge.svg)](https://semaphoreci.com/pascal/lockstockbarril)
 
 
+Rails 5 api and Spa
+
+It 's a rails api that use rails capacity to manage the javascript templates to build a web in Spa without framework. For yet it uses jquery and bootstrap but in a future it will use d3.js
+
+The complete curl in in doc/complete_curl.txt
+
 This application manages stock
 
 The requirments are:
@@ -14,7 +20,7 @@ The requirments are:
 
 * * can edit update delete
 
-* * * articles, brands, suppliers, supplies, supplies_in_stock, stocks, locations, addresses
+* * * articles, brands, suppliers, supplies, supplies_in_warehouse, warehouses, locations, addresses
 
 * articles
 
@@ -50,11 +56,11 @@ The requirments are:
 
 * * have price
 
-* supply_in_stock
+* supply_in_warehouse
 
 * * have article
 
-* * have stock
+* * have warehouse
 
 * * have quantity
 
@@ -62,7 +68,7 @@ The requirments are:
 
 * * have bought_price
 
-* stocks
+* warehouses
 
 * * have name, address
 
@@ -70,17 +76,17 @@ The requirments are:
 
 * * have locations
 
-* * can have supply_in_stock
+* * can have supply_in_warehouse
 
 * locations
 
 * * have name
 
-* * have stock
+* * have warehouse
 
-* * can have supplies_in_stock
+* * can have supplies_in_warehouse
 
-* * can have articles through supplies_in_stock
+* * can have articles through supplies_in_warehouse
 
 * address
 
@@ -100,4 +106,4 @@ The requirments are:
 
 * * can have supplier
 
-* * can have stock
+* * can have warehouse
