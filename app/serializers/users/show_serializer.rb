@@ -1,4 +1,5 @@
 # user_serializer serialize one user
-class UserSerializer < ActiveModel::Serializer
+class Users::ShowSerializer < ActiveModel::Serializer
+  root :user
   attributes :id, :name, :email
 end

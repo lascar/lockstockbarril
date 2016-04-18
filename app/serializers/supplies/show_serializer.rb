@@ -1,5 +1,5 @@
 # supply_serializer serialize one supply
-class SupplySerializer < ActiveModel::Serializer
+class Supplies::ShowSerializer < ActiveModel::Serializer
 
   attributes :ref_supplier, :price, :url
   has_one :article

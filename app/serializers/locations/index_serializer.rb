@@ -1,5 +1,5 @@
 # location_serializer serialize one location
-class LocationSerializer < ActiveModel::Serializer
+class Locations::IndexSerializer < ActiveModel::Serializer
 
   attributes :name
 

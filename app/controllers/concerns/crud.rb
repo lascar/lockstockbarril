@@ -21,19 +21,23 @@ module CRUD
 
   # GET /articles.json
   def index
-    render json: @resources
+    if params[:web]
+      render template: 'web/templates/' + resource_name.pluralize + '/articles.js.erb', locals: {resources: @resources}
+    else
+      render json: @resources, each_serializer: set_resources_serializer
+    end
   end
 
   # GET /articles/1.json
   def show
-    render json: @resource
+    render json: @resource, serializer: set_resource_serializer
   end
 
   # POST /articles.json
   def create
     set_resource_new(permit_attributes)
     if @resource.save
-      render json: @resource, status: 201
+      render json: @resource, status: 201, serializer: set_resource_serializer
     else
       render json: { errors: @resource.errors }, status: 422
     end
@@ -42,7 +46,7 @@ module CRUD
   # PATCH/PUT /articles/1.json
   def update
     if @resource.update(permit_attributes)
-      render json: @resource, status: 200
+      render json: @resource, status: 200, serializer: set_resource_serializer
     else
       render json: { errors: @resource.errors }, status: 422
     end
@@ -90,6 +94,10 @@ module CRUD
     queries && filter_resources(queries)
   end
 
+  def set_resources_serializer
+    (resource_name.pluralize.camelize + '::IndexSerializer').constantize
+  end
+
   def set_resource_new(parameters=nil)
     instance_variable_set('@resource', resource_name.classify.constantize.new(parameters))
   end
@@ -100,6 +108,10 @@ module CRUD
     rescue ActiveRecord::RecordNotFound
       head 404
     end
+  end
+
+  def set_resource_serializer
+    (resource_name.pluralize.camelize + '::ShowSerializer').constantize
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

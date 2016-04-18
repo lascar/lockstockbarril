@@ -1,5 +1,7 @@
 require 'api_constraints'
 Rails.application.routes.draw do
+  get 'web/welcome'
+
   namespace :api do
     scope module: :v1, constraints: ApiConstraints.new(version: 1, default: :true), defaults: { format: :json } do
       resources :articles

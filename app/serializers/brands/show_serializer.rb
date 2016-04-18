@@ -1,5 +1,5 @@
 # brand_serializer serialize one brand
-class BrandSerializer < ActiveModel::Serializer
+class Brands::ShowSerializer < ActiveModel::Serializer
 
   attributes :name, :url
 

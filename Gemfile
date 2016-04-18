@@ -6,7 +6,10 @@ gem 'rails', '5.0.0.beta3'
 gem 'active_model_serializers', '~> 0.8.3' # NOTE: not the 0
 gem 'pg'
 gem 'rails_12factor', group: :production
-
+gem 'jquery-rails'
+gem 'sass-rails'
+gem 'uglifier'
+gem 'bootstrap-sass'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

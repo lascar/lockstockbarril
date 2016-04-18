@@ -1,6 +1,7 @@
 # article_serializer serialize one article
-class ArticleSerializer < ActiveModel::Serializer
+class Articles::ShowSerializer < ActiveModel::Serializer
 
+  root :article
   attributes :reference, :url
   has_one :brand
 

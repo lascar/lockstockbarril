@@ -1,5 +1,5 @@
 # supply_serializer serialize one supply
-class SupplyInWarehouseSerializer < ActiveModel::Serializer
+class SuppliesInWarehouse::IndexSerializer < ActiveModel::Serializer
 
   attributes :bought_price_unit, :quantity, :bought_date, :url
   has_one :article

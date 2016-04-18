@@ -1,5 +1,5 @@
 # warehouse_serializer serialize one warehouse
-class WarehouseSerializer < ActiveModel::Serializer
+class Warehouses::ShowSerializer < ActiveModel::Serializer
   attributes :name, :capacity, :url
   has_one :address
   has_many :locations

@@ -32,7 +32,7 @@ describe 'GET #show' do
     @article = create :article
     get :show, params: { id: @article.id }
   end
-  it 'returns the information about a reporter on a hash' do
+  it 'returns a json serialize with the show serializer' do
     article_response = json_response
     expect(article_response[:article][:reference]).to eql @article.reference
   end

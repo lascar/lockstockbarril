@@ -1,5 +1,5 @@
 # address_serializer serialize one address
-class AddressSerializer < ActiveModel::Serializer
+class Addresses::IndexSerializer < ActiveModel::Serializer
 
   attributes :id, :zipcode, :town, :state, :country, :url
 
