@@ -9,18 +9,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="well sidebar-nav">
-            <ul class="nav nav-list">
-              <%= render 'web/sidebar_menu' %>
-            </ul>
-          </div>
-        </div>
-        <div class="col-md-8">
-          <%= yield %>
-        </div>
-      </div>
+      <%= yield %>
     </div>
   </body>
 </html>

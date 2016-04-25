@@ -1,7 +1,22 @@
-<h1>Web#welcome</h1>
-<p>Find me in app/views/web/welcome.html.erb</p>
-<div id="resources">resources</div>
-
+<div class="row">
+  <div class="col-md-3">
+    <div class="well sidebar-nav">
+      <ul class="nav nav-list">
+        <%= render 'web/sidebar_menu' %>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-8">
+    <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#Home">Home</a></li>
+    </ul>
+    <div class="tab-content">
+      <div id="Home" class="tab-pane fade in active">
+        <h1>Web#welcome</h1>
+      </div>
+    </div>
+  </div>
+</div>
 <script>
     $.ajaxSetup({
         headers: {"X-Requested-With": "XMLHttpRequest"}

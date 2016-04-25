@@ -25,5 +25,5 @@ Rails.application.routes.draw do
     end
   end
  
-  root controller: 'api/v1/articles', action: :index
+  root controller: 'web', action: :welcome
 end

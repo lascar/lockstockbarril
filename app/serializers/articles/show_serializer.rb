@@ -2,7 +2,7 @@
 class Articles::ShowSerializer < ActiveModel::Serializer
 
   root :article
-  attributes :reference, :url
+  attributes :id, :reference, :url
   has_one :brand
 
   def url 

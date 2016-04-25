@@ -1,0 +1,61 @@
+{{#if articles}}
+    <div id="Articles" class="tab-pane fade">
+        <table class="table">
+            <caption>Articles list</caption>
+            <thead>
+                <tr>
+                    <th>reference</th>
+                    <th>brand</th>
+                </tr>
+            </thead>
+   
+            <tbody>
+                {{#each articles}}
+                    <tr>
+                        <td><a data-id="{{id}}" data-url="{{url}}" class="article_link" href="#">{{reference}}</a></td>
+                        <td><a data-brand_id="{{brand_id}}" data-brand_url="{{brand_url}}" class="brand_link" href="#">{{brand_name}}</a></td>
+                    </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+{{else}}
+    <h3>No article found.</h3>
+{{/if}}
+<script>
+    $(".article_link").click(function() {
+        var id = $(this).data("id");
+        var tabName = "article_" + id;
+        var url = $(this).data("url");
+        var action = "show";
+
+        tabCreateOrSwitch ("articles", tabName, url, action);
+    });
+
+    $(".brand_link").click(function(e) {
+        var id = $(this).attr("data-brand_id");
+        var tabName = "brand_" + id;
+        var url = $(this).attr("data-brand_url");
+        var action = "show";
+
+        tabCreateOrSwitch ("brands", tabName, url, action);
+    });
+
+    function tabCreateOrSwitch (type, tabName, url, action) {
+        if ( $("#" + tabName).length < 1 ) {
+            $.ajax({
+                dataType: "json",
+                url: url,
+                success: function(data, status) {
+                          var content = JST[type + '/' + action](data);
+                          $(".tab-content").append(content);
+                          if ($("a[href='#" + tabName + "']").length < 1 ) {
+                              var tab = JST[type + '/nav_tab'](tabName);
+                              $(".nav-tabs").append(tab);
+                              $("a[href='#" + tabName + "']").trigger('click');
+                          }
+                }
+            });
+        }
+     }
+</script>

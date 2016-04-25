@@ -21,11 +21,7 @@ module CRUD
 
   # GET /articles.json
   def index
-    if params[:web]
-      render template: 'web/templates/' + resource_name.pluralize + '/articles.js.erb', locals: {resources: @resources}
-    else
-      render json: @resources, each_serializer: set_resources_serializer
-    end
+    render json: @resources, each_serializer: set_resources_serializer
   end
 
   # GET /articles/1.json

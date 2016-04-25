@@ -9,6 +9,7 @@ gem 'rails_12factor', group: :production
 gem 'jquery-rails'
 gem 'sass-rails'
 gem 'uglifier'
+gem 'handlebars_assets'
 gem 'bootstrap-sass'
 
 group :doc do
@@ -27,6 +28,8 @@ end
 group :development do
   gem 'listen', require: false
   gem 'spring', require: false
+  gem 'spring-commands-rspec', require: false
+  gem "spring-commands-cucumber", require: false
   gem 'reek', require: false
   gem 'web-console', '~> 2.0'
 end
@@ -35,16 +38,16 @@ group :development, :test do
   %w[rspec-core rspec-expectations rspec-mocks rspec-rails rspec-support].each do |lib|
         gem lib, git: "https://github.com/rspec/#{lib}.git", branch: 'master'
   end
-  gem "spring-commands-rspec", :require => false
-
+  gem 'cucumber-rails', require: false
+  gem 'capybara', :require => false
   gem 'factory_girl_rails', require: false
   gem 'byebug'
   gem 'faker'
 end
 
 group :test do
-  gem 'shoulda-matchers', '~> 3.1'
+  gem 'shoulda-matchers', '~> 3.1', :require => false
   gem 'database_cleaner', :require => false
-  gem 'capybara', :require => false
   gem 'poltergeist', :require => false
+  gem 'phantomjs', :require => 'phantomjs/poltergeist'
 end

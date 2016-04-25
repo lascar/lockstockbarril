@@ -1,0 +1,13 @@
+{{ log this }}
+{{#if article}}
+    <div id="article_{{article.id}}" class="tab-pane fade">
+        <div>{{article.reference}}</div>
+        <div>{{article.brand.name}}</div>
+    </div>
+{{else}}
+    <div id="article_{{article.id}}" class="tab-pane fade">
+        <h3>No article found.</h3>
+    </div>
+{{/if}}
+<script>
+</script>

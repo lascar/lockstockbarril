@@ -1,6 +1,24 @@
 <li class="active">
-<%= link_to "Articles", api_articles_path(web: true), remote: true %>
+<%= link_to "Articles", "#", id: "link_articles"%>
 </li>
 <script>
-
+    $("#link_articles").click(function() {
+        if ( $("#Articles").length < 1 ) {
+            $.ajax({
+                dataType: "json",
+                url: "<%= api_articles_path %>",
+                success: function(data, status) {
+                          var content = JST['articles/index'](data);
+                          $(".tab-content").append(content);
+                          if ($("a[href='#Articles']").length < 1 ) {
+                              var tab = JST['articles/nav_tab']("Articles");
+                              $(".nav-tabs").append(tab);
+                              $("a[href='#Articles']").trigger('click');
+                          }
+                }
+            });
+        } else {
+            $("a[href='#Articles']").trigger('click');
+        }
+    });
 </script>

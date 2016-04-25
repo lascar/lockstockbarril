@@ -1,7 +1,7 @@
 # article_serializer serialize one article
 class Articles::IndexSerializer < ActiveModel::Serializer
 
-  attributes :reference, :url, :brand_name, :brand_url
+  attributes :id, :reference, :url, :brand_id, :brand_name, :brand_url
 
   def url 
     api_article_url(object)
