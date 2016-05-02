@@ -6,7 +6,7 @@
 
 Rails 5 api and Spa
 
-It 's a rails api that use rails capacity to manage the javascript templates to build a web in Spa without framework. For yet it uses jquery and bootstrap but in a future it will use d3.js
+It 's a rails api that use rails capacity to manage the javascript templates to build a web in Spa without framework. For yet it uses jquery, handelbars and bootstrap but in a future it will use d3.js
 
 The complete curl in in doc/complete_curl.txt
 
@@ -107,3 +107,5 @@ The requirments are:
 * * can have supplier
 
 * * can have warehouse
+
+The prices and capacity are integer, the presentation have to deal with decimals
