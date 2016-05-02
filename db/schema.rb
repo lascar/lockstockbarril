@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 20160328154850) do
     t.string   "ref_supplier", default: ""
     t.integer  "article_id"
     t.integer  "supplier_id"
-    t.decimal  "price"
+    t.integer  "price"
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -106,10 +106,10 @@ ActiveRecord::Schema.define(version: 20160328154850) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
   create_table "warehouses", force: :cascade do |t|
-    t.string   "name",                                default: ""
-    t.decimal  "capacity",   precision: 10, scale: 1, default: "0.0"
-    t.datetime "created_at",                                          null: false
-    t.datetime "updated_at",                                          null: false
+    t.string   "name",       default: ""
+    t.integer  "capacity",   default: 0
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   add_foreign_key "articles", "brands"

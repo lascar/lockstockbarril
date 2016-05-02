@@ -50,12 +50,13 @@
                           var content = JST[type + '/' + action](data);
                           $(".tab-content").append(content);
                           if ($("a[href='#" + tabName + "']").length < 1 ) {
-                              var tab = JST[type + '/nav_tab'](tabName);
+                              var tab = JST['utils/nav_tab'](tabName);
                               $(".nav-tabs").append(tab);
                               $("a[href='#" + tabName + "']").trigger('click');
                           }
                 }
             });
         }
+        $("a[href='#" + tabName + "']").trigger('click');
      }
 </script>

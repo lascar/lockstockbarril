@@ -11,7 +11,7 @@
                           var content = JST['articles/index'](data);
                           $(".tab-content").append(content);
                           if ($("a[href='#Articles']").length < 1 ) {
-                              var tab = JST['articles/nav_tab']("Articles");
+                              var tab = JST['utils/nav_tab']("Articles");
                               $(".nav-tabs").append(tab);
                               $("a[href='#Articles']").trigger('click');
                           }
