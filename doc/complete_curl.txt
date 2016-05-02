@@ -39,9 +39,9 @@ curl localhost:3000/api/supplies
 
 curl localhost:3000/api/supplies/1
 
-curl -X POST localhost:3000/api/supplies/ -d '{"supply": {"ref_supplier":"supply 3","supplier_id":1, "article_id":1, "price":"30.20"}}' --header "Content-Type:application/json"
+curl -X POST localhost:3000/api/supplies/ -d '{"supply": {"ref_supplier":"supply 3","supplier_id":1, "article_id":1, "price":"3020"}}' --header "Content-Type:application/json"
 
-curl --request PATCH localhost:3000/api/supplies/3 -d '{"supply": {"id":3, "ref_supplier":"supply 3 updated","supplier_id":2, "article_id":1, "price":"20.30"}}' --header "Content-Type:application/json"
+curl --request PATCH localhost:3000/api/supplies/3 -d '{"supply": {"id":3, "ref_supplier":"supply 3 updated","supplier_id":2, "article_id":1, "price":"2030"}}' --header "Content-Type:application/json"
 
 curl -X DELETE localhost:3000/api/supplies/3
 
@@ -67,7 +67,7 @@ curl --request PATCH localhost:3000/api/warehouses/3 -d '{"warehouse": {"name": 
 
 curl -X DELETE localhost:3000/api/warehouses/3
 
-curl -X POST localhost:3000/api/warehouses/2/add_supply -d '{"supply": {"id": "1", "unit_price": "20", "quantity": "2", "date": "01/04/2016"}}' --header "Content-Type:application/json"
+curl -X POST localhost:3000/api/warehouses/2/add_supply -d '{"supply_in_warehouse": {"supply_id": "1", "bought_price_unit": "20", "quantity": "2", "bought_date": "01/04/2016"}}' --header "Content-Type:application/json"
 
 curl -X DELETE localhost:3000/api/warehouses/2/remove_supply/4 
 

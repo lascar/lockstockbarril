@@ -4,7 +4,7 @@ class CreateSupplies < ActiveRecord::Migration
       t.string :ref_supplier, default: ''
       t.belongs_to :article, index: true, foreign_key: true
       t.belongs_to :supplier, index: true, foreign_key: true
-      t.decimal :price, precision: 15, scale: 2, default: 0.0
+      t.integer :price
 
       t.timestamps null: false
     end

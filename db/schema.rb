@@ -67,12 +67,12 @@ ActiveRecord::Schema.define(version: 20160328154850) do
   end
 
   create_table "supplies", force: :cascade do |t|
-    t.string   "ref_supplier",                          default: ""
+    t.string   "ref_supplier", default: ""
     t.integer  "article_id"
     t.integer  "supplier_id"
-    t.decimal  "price",        precision: 15, scale: 2, default: "0.0"
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
+    t.decimal  "price"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   add_index "supplies", ["article_id"], name: "index_supplies_on_article_id", using: :btree
@@ -81,9 +81,9 @@ ActiveRecord::Schema.define(version: 20160328154850) do
 
   create_table "supplies_in_warehouse", force: :cascade do |t|
     t.integer  "article_id",        null: false
-    t.integer  "supply_id"
+    t.integer  "supply_id",         null: false
     t.integer  "location_id"
-    t.integer  "warehouse_id"
+    t.integer  "warehouse_id",      null: false
     t.integer  "bought_price_unit"
     t.integer  "quantity"
     t.date     "bought_date"

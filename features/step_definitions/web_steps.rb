@@ -3,9 +3,9 @@ When(/^I go to the default home page$/) do
 end
 
 Then(/^I see 'welcome'$/) do
-  page.find('#resources').text('welcome')
+  page.find('h1').text('welcome')
 end
 
 Then(/^I see a link to 'Articles'/) do
-  page.find('a').text('Articles')
+  page.find('#link_articles').text('Articles')
 end
