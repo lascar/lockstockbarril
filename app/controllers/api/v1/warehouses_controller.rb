@@ -1,5 +1,5 @@
 # warehouse stocks supply_in_warehouse
-class Api::V1::WarehousesController < ApplicationController
+class Api::V1::WarehousesController < Api::V1::ApplicationController
   include CRUD
   resource_name 'warehouse'
   permitted_attributes [:name, :capacity, address_attributes: [:id, :street, :street_number, :additional_information, :zipcode, :town, :state, :country]]

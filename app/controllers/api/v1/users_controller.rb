@@ -1,5 +1,5 @@
 # users_controller no index
-class Api::V1::UsersController < ApplicationController
+class Api::V1::UsersController < Api::V1::ApplicationController
 
   def show
     render json: User.find(params[:id]), serializer: Users::ShowSerializer

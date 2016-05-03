@@ -41,6 +41,7 @@ group :development, :test do
   gem 'cucumber-rails', require: false
   gem 'capybara', :require => false
   gem 'factory_girl_rails', require: false
+  gem 'launchy'
   gem 'byebug'
   gem 'faker'
 end
