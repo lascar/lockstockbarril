@@ -7,7 +7,6 @@ When(/^I click 'Articles'$/) do
 end
 
 Then(/^I see the list of articles$/) do
-  save_and_open_page
    within("#Articles") do
     @articles.each do |article|
       expect(page).to have_content(article.reference)

@@ -1,4 +1,4 @@
-class CreateSupplies < ActiveRecord::Migration
+class CreateSupplies < ActiveRecord::Migration[5.0]
   def change
     create_table :supplies do |t|
       t.string :ref_supplier, default: ''

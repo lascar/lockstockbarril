@@ -18,7 +18,6 @@ module Lockstockbarril
         g.helper = false
     end
     config.assets.initialize_on_precompile = false
-    config.active_record.raise_in_transactional_callbacks = true
     config.autoload_paths += [Rails.root.join('app', 'queries', 'validators')]
   end
 end

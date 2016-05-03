@@ -1,4 +1,4 @@
-class CreateSuppliesInWarehouse < ActiveRecord::Migration
+class CreateSuppliesInWarehouse < ActiveRecord::Migration[5.0]
   def change
     create_table :supplies_in_warehouse do |t|
       t.references :article, index: true, foreign_key: true, null: false
