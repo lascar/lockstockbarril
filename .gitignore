@@ -24,6 +24,7 @@ config/secrets.yml
 # vim
 *~
 *.swp
+Session.vim
 
 # me
 .toto
