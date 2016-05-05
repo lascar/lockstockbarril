@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160328154850) do
+ActiveRecord::Schema.define(version: 20160505065501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,15 @@ ActiveRecord::Schema.define(version: 20160328154850) do
   end
 
   add_index "addresses", ["addresseable_type", "addresseable_id"], name: "index_addresses_on_addresseable_type_and_addresseable_id", using: :btree
+
+  create_table "application_parameters", force: :cascade do |t|
+    t.string   "param"
+    t.string   "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "application_parameters", ["param"], name: "index_application_parameters_on_param", unique: true, using: :btree
 
   create_table "articles", force: :cascade do |t|
     t.string   "reference",  default: ""
@@ -97,10 +106,12 @@ ActiveRecord::Schema.define(version: 20160328154850) do
   add_index "supplies_in_warehouse", ["warehouse_id"], name: "index_supplies_in_warehouse_on_warehouse_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                   null: false
-    t.string   "name",       default: ""
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
+    t.string   "email",                      null: false
+    t.string   "name",          default: ""
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.string   "user_secret"
+    t.string   "server_secret"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
@@ -110,6 +121,12 @@ ActiveRecord::Schema.define(version: 20160328154850) do
     t.integer  "capacity",   default: 0
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "web_tokens", force: :cascade do |t|
+    t.string  "user_email"
+    t.string  "token"
+    t.integer "expiry_time"
   end
 
   add_foreign_key "articles", "brands"

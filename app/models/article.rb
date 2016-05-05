@@ -1,5 +1,5 @@
 # Article is the gender of supply and supply_in_warehouse
-class Article < ActiveRecord::Base
+class Article < ApplicationRecord
   validates_presence_of :reference
   validates_uniqueness_of :reference, scope: :brand_id
   belongs_to :brand

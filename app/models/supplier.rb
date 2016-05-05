@@ -1,4 +1,4 @@
-class Supplier < ActiveRecord::Base
+class Supplier < ApplicationRecord
   include AddAddress
   has_many :articles, through: :supplies, dependent: :destroy
   has_many :supplies, dependent: :destroy

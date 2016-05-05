@@ -1,13 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
-  describe "GET #show" do
+  describe 'GET #show' do
     before(:each) do
       @user = create :user
       get :show, params: { id: @user.id }
     end
 
-    it "returns the information about a reporter on a hash" do
+    it 'returns the information about a reporter on a hash' do
       user_response = json_response
       expect(user_response[:user][:email]).to eql @user.email
     end
@@ -15,15 +15,15 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it { is_expected.to respond_with 200 }
   end
 
-  describe "POST #create" do
-    context "when is successfully created" do
+  describe 'POST #create' do
+    context 'when is successfully created' do
       before(:each) do
         @user = create :user
         @user_attributes = attributes_for :user
         post :create, params: { user: @user_attributes }
       end
       
-      it "renders the json representation for the user record just created" do
+      it 'renders the json representation for the user record just created' do
         user_response = json_response
         expect(user_response[:user][:email]).to eql @user_attributes[:email]
       end
@@ -31,7 +31,7 @@ RSpec.describe Api::V1::UsersController, type: :controller do
       it { is_expected.to respond_with 201 }
     end
 
-    context "when is not created" do
+    context 'when is not created' do
       before(:each) do
         #notice I'm not including the email
         @user = create :user
@@ -39,12 +39,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         post :create, params: { user: @invalid_user_attributes }
       end
 
-      it "renders an errors json" do
+      it 'renders an errors json' do
         user_response = json_response
         expect(user_response).to have_key(:errors)
       end
       
-      it "renders the json errors on why the user could not be created" do
+      it 'renders the json errors on why the user could not be created' do
         user_response = json_response
         expect(user_response[:errors][:email]).to include "can't be blank"
       end
@@ -53,41 +53,53 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     end
   end
 
-  describe "PUT/PATCH #update" do
-    context "when is successfully updated" do
+  describe 'PUT/PATCH #update' do
+    context 'when is successfully updated' do
       before(:each) do
         @user = create :user
         patch :update, params: { id: @user.id,
-                         user: { email: "newmail@example.com" } }
+                         user: { email: 'newmail@example.com' } }
       end
-      it "renders the json representation for the updated user" do
+      it 'renders the json representation for the updated user' do
         user_response = json_response
-        expect(user_response[:user][:email]).to eql "newmail@example.com"
+        expect(user_response[:user][:email]).to eql 'newmail@example.com'
       end
       it { is_expected.to respond_with 200 }
     end
-    context "when is not created" do
+    context 'when is not created' do
       before(:each) do
         @user = create :user
         bad_attributes = attributes_for :user_invalid_request
         patch :update, params: { id: @user.id, user: bad_attributes }
       end
-      it "renders an errors json" do
+      it 'renders an errors json' do
         user_response = json_response
         expect(user_response).to have_key(:errors)
       end
-      it "renders the json errors on whye the user could not be created" do
+      it 'renders the json errors on whye the user could not be created' do
         user_response = json_response
         expect(user_response[:errors][:email]).to include "can't be blank"
       end
       it { is_expected.to respond_with 422 }
     end
   end
-  describe "DELETE #destroy" do
+  describe 'DELETE #destroy' do
     before(:each) do
       @user = create :user
       delete :destroy, params: { id: @user.id }
     end
     it { is_expected.to respond_with 204 }
+  end
+
+  xdescribe 'POST #obtain token' do
+    require 'jwt'
+    let(:user) { create :user}
+
+    it 'obtains a token' do
+      post :obtain_token, params: { email: user.email }
+
+      user_response = json_response
+      exept(user_response[:token]).to eq('toto')
+    end
   end
 end

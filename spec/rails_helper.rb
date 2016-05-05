@@ -55,7 +55,7 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
-  DatabaseCleaner.strategy = :transaction
+  #Rake::Task['db:load_params'].invoke # loading seeds
   config.include FactoryGirl::Syntax::Methods
 
   # Filter lines from Rails gems in backtraces.
@@ -63,6 +63,7 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 end
+
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
     with.test_framework :rspec
@@ -70,3 +71,4 @@ Shoulda::Matchers.configure do |config|
   end
 end
 
+load "#{Rails.root}/db/seeds.rb"

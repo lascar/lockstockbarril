@@ -1,3 +1,4 @@
+# application controller for the api
 class Api::V1::ApplicationController < ActionController::Base
   protect_from_forgery with: :null_session
   after_action  :set_access_control_headers

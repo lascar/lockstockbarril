@@ -1,0 +1,17 @@
+The user has two keys (the two keys are also in the user record on the server):
+
+ - the user_secret
+
+ - the server_secret (each user has a different one)
+
+ The user send a post at api/users/obtain_token with params {user_email: <the user's email>}
+
+ The server send a token encrypt with the server_secret
+
+ The user has to decript the token with the server_secret
+
+ The user has to encode the token with the user_secret
+
+ The user send his petition to the api with the encrypted token
+
+ The server receives the petition, decrypts the token with the user_secret and authorizes the operation

@@ -26,12 +26,12 @@ class ArticleQuery
   private
   def dispatch_filter(articles, key, value)
     method_map = self.class::QUERY_MAPPING[key.to_sym]
-    where_query = method_map.to_s.match(/^where_(?<attribute>.*)$/)
-    return articles unless (where_query || Article.respond_to?(method_map.to_s))
+    method_map_to_s = method_map.to_s
+    where_query = method_map_to_s.match(/^where_(?<attribute>.*)$/)
     if where_query
       articles.where(where_query[:attribute] => value)
     else
-      articles.send(method_map, value)
+      Article.respond_to?(method_map_to_s) ? articles.send(method_map, value) : articles
     end
   end
 end

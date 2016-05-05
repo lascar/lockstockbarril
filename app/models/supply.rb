@@ -1,4 +1,4 @@
-class Supply < ActiveRecord::Base
+class Supply < ApplicationRecord
   belongs_to :article, inverse_of: :supplies
   belongs_to :supplier, inverse_of: :supplies
   validates_uniqueness_of :ref_supplier, scope: :supplier_id

@@ -3,6 +3,7 @@ ruby "2.2.3"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '5.0.0.beta3'
+gem 'jwt'
 gem 'active_model_serializers', '~> 0.8.3' # NOTE: not the 0
 gem 'pg'
 gem 'rails_12factor', group: :production

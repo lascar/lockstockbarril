@@ -1,4 +1,5 @@
-class SupplyInWarehouse < ActiveRecord::Base
+# The concrete article as sell by a supplier
+class SupplyInWarehouse < ApplicationRecord
   include ActiveModel::Validations
   belongs_to :warehouse
   belongs_to :article

@@ -1,3 +1,4 @@
+# the object has to persist
 class EnsureExists < ActiveModel::Validator
   def validate(record)
     type = options[:type]
