@@ -1,4 +1,4 @@
-$('#resources').empty()   
+$('#resources').empty()  
 <% resources.each do |resource| %>
   $('#resources').append( "<div><%= resource.reference %></div>" );
 <% end %>

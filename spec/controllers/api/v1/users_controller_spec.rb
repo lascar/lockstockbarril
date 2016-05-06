@@ -1,9 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::UsersController, type: :controller do
+  before :each do
+    put_headers_for_auth(request.headers)
+  end
+
   describe 'GET #show' do
     before(:each) do
-      @user = create :user
+      @user = User.first
       get :show, params: { id: @user.id }
     end
 
@@ -22,12 +26,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         @user_attributes = attributes_for :user
         post :create, params: { user: @user_attributes }
       end
-      
+     
       it 'renders the json representation for the user record just created' do
         user_response = json_response
         expect(user_response[:user][:email]).to eql @user_attributes[:email]
       end
-      
+     
       it { is_expected.to respond_with 201 }
     end
 
@@ -43,12 +47,12 @@ RSpec.describe Api::V1::UsersController, type: :controller do
         user_response = json_response
         expect(user_response).to have_key(:errors)
       end
-      
+     
       it 'renders the json errors on why the user could not be created' do
         user_response = json_response
         expect(user_response[:errors][:email]).to include "can't be blank"
       end
-      
+     
       it { is_expected.to respond_with 422 }
     end
   end
@@ -91,15 +95,26 @@ RSpec.describe Api::V1::UsersController, type: :controller do
     it { is_expected.to respond_with 204 }
   end
 
-  xdescribe 'POST #obtain token' do
+  describe 'token' do
     require 'jwt'
     let(:user) { create :user}
 
-    it 'obtains a token' do
-      post :obtain_token, params: { email: user.email }
+    describe 'obtain_token' do
+      it 'obtains a token with a valid user' do
+        post :obtain_token, params: { user: { email: user.email } }
+        user_response = json_response # {token: <string>}
+        user_decoded_token = JWT.decode(user_response[:token], user.server_secret).first
+        webtoken = WebToken.find_by_user_email_and_token(user.email, user_decoded_token['server_encoded_token'])
+        expect(webtoken).to be_instance_of(WebToken)
+      end
 
-      user_response = json_response
-      exept(user_response[:token]).to eq('toto')
+      it 'obtains a error with a invalid user' do
+        not_created_user = build(:user)
+        post :obtain_token, params: { user: { email: not_created_user.email } }
+        user_response = json_response
+
+        expect(user_response[:errors]).to eq 'Not authorized'
+      end
     end
   end
 end

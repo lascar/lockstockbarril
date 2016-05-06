@@ -4,6 +4,10 @@ RSpec.describe Api::V1::WarehousesController, type: :controller do
   let(:warehouse) { create(:warehouse) }
   let(:supply) { create(:supply, price: 10) }
 
+  before :each do
+    put_headers_for_auth(request.headers)
+  end
+
   it '#add_supply' do
     post :add_supply, params: { id: warehouse.id, supply_in_warehouse: { supply_id: supply.id, bought_price_unit: 20, quantity: 2, bought_date: Date.today - 2.months} }
 

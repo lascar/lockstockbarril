@@ -1,5 +1,7 @@
 # users_controller no index
 class Api::V1::UsersController < Api::V1::ApplicationController
+  require 'json_web_token'
+  include JsonWebToken
 
   def show
     render json: User.find(params[:id]), serializer: Users::ShowSerializer
@@ -28,8 +30,18 @@ class Api::V1::UsersController < Api::V1::ApplicationController
     user.destroy
     head 204
   end
+
+  def obtain_token
+    user_email = user_params[:email]
+    if user = User.find_by_email(user_email)
+      server_secret_encode(user.email, user.server_secret) and return #! server_secret_encode render
+    end
+    render json: { errors: 'Not authorized' }
+  end
+
   private
   def user_params
     params.require(:user).permit(:email, :name)
   end
+
 end

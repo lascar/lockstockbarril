@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::SuppliersController, type: :controller do
+  before :each do
+    put_headers_for_auth(request.headers)
+  end
+
   describe 'when an address is given with' do
     let(:supplier_attributes) {attributes_for(:supplier) }
     let(:address_attributes) {attributes_for(:address) }

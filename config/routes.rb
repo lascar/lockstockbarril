@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       resources :addresses
       resources :sessions, only: [:create, :destroy]
       resources :users, only: [:show, :create, :update, :destroy]
+      post '/users/obtain_token', to: 'users#obtain_token'
     end
     scope module: :v2, constraints: ApiConstraints.new(version: 2), defaults: { format: :json } do
     end

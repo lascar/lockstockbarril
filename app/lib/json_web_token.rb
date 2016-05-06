@@ -8,7 +8,7 @@ module JsonWebToken
     webtoken = new_token(user_email)
     payload = {server_encoded_token: webtoken.token}
     payload['exp'] = webtoken.expiry_time
-    JWT.encode(payload, server_secret)
+    secret_encode(payload, server_secret)
   end
 
   def verify_token(user_email, user_user_secret, user_encoded_token)
@@ -17,7 +17,7 @@ module JsonWebToken
     if webtoken
       user_token_decoded['exp'] == webtoken.expiry_time
     else
-      false
+      render json: { errors: 'Not authorized' }, layout: false
     end
   end
 
@@ -29,6 +29,16 @@ module JsonWebToken
   end
 
   def user_token_encoded_decode(user_encoded_token, user_user_secret)
-    JWT.decode(user_encoded_token, user_user_secret).first
+    begin
+      JWT.decode(user_encoded_token, user_user_secret).first
+    rescue
+        {'user_encoded_token': nil}
+    end
   end
+ 
+  def secret_encode(payload, server_secret)
+    token = JWT.encode(payload, server_secret)
+    render json: { token: token }
+  end
+
 end
