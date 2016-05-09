@@ -36,7 +36,7 @@ set laststatus=2
 set nomodeline
 set printoptions=paper:letter
 set ruler
-set runtimepath=~/.vim,~/.vim/bundle/javascript-libraries-syntax,~/.vim/bundle/nerdtree,~/.vim/bundle/tagbar,~/.vim/bundle/vim-abolish,~/.vim/bundle/vim-angular,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-jsbeautify,~/.vim/bundle/vim-rails,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/bundle/javascript-libraries-syntax/after,~/.vim/after,$HOME/.vim
+set runtimepath=~/.vim,~/.vim/bundle/javascript-libraries-syntax,~/.vim/bundle/nerdtree,~/.vim/bundle/tagbar,~/.vim/bundle/vim-abolish,~/.vim/bundle/vim-angular,~/.vim/bundle/vim-fugitive,~/.vim/bundle/vim-jsbeautify,~/.vim/bundle/vim-rails,/var/lib/vim/addons,/usr/share/vim/vimfiles,/usr/share/vim/vim74,/usr/share/vim/vimfiles/after,/var/lib/vim/addons/after,~/.vim/bundle/javascript-libraries-syntax/after,~/.vim/after,~/.vim
 set shiftwidth=2
 set softtabstop=2
 set statusline=%m%F%h%w\ [ASCII=%03.3b]\ [HEX=%02.2B]\ [POS=%04l,%04v][%p%%]\ [LEN=%L]
@@ -67,8 +67,8 @@ set nosplitbelow
 set nosplitright
 wincmd t
 set winheight=1 winwidth=1
-exe '1resize ' . ((&lines * 14 + 15) / 31)
-exe '2resize ' . ((&lines * 14 + 15) / 31)
+exe '1resize ' . ((&lines * 15 + 16) / 33)
+exe '2resize ' . ((&lines * 15 + 16) / 33)
 argglobal
 let s:cpo_save=&cpo
 set cpo&vim
@@ -192,7 +192,7 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 24 - ((8 * winheight(0) + 7) / 14)
+let s:l = 24 - ((9 * winheight(0) + 7) / 15)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
@@ -323,15 +323,15 @@ setlocal nowinfixwidth
 setlocal wrap
 setlocal wrapmargin=0
 silent! normal! zE
-let s:l = 12 - ((5 * winheight(0) + 7) / 14)
+let s:l = 12 - ((5 * winheight(0) + 7) / 15)
 if s:l < 1 | let s:l = 1 | endif
 exe s:l
 normal! zt
 12
-normal! 037|
+normal! 05|
 wincmd w
-exe '1resize ' . ((&lines * 14 + 15) / 31)
-exe '2resize ' . ((&lines * 14 + 15) / 31)
+exe '1resize ' . ((&lines * 15 + 16) / 33)
+exe '2resize ' . ((&lines * 15 + 16) / 33)
 tabnext 1
 if exists('s:wipebuf')
   silent exe 'bwipe ' . s:wipebuf
